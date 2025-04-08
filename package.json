@@ -2,9 +2,9 @@
   "name": "cmpstr-cli",
   "description": "CLI for the lightweight CmpStr npm package to calculate string similarity",
   "author": {
-    "name" : "komed3 (Paul Köhler)",
-    "email" : "webmaster@komed3.de",
-    "url" : "https://komed3.de"
+    "name": "komed3 (Paul Köhler)",
+    "email": "webmaster@komed3.de",
+    "url": "https://komed3.de"
   },
   "homepage": "https://github.com/komed3/cmpstr-cli#readme",
   "version": "1.0.0",
@@ -17,5 +17,15 @@
   },
   "bugs": {
     "url": "https://github.com/komed3/cmpstr-cli/issues"
+  },
+  "dependencies": {
+    "cmpstr": "^2.0.2",
+    "commander": "^13.1.0",
+    "yaml": "^2.7.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.14.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
   }
 }
