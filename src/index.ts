@@ -1,5 +1,5 @@
 /**
- * Entry point for cmpstr-cli
+ * Entry point for `cmpstr-cli`
  *
  * This CLI tool provides access to the core functions of the `cmpstr` library,
  * allowing string normalization, comparison, and similarity analysis directly via the terminal.
@@ -21,6 +21,7 @@
 
 /**
  * module dependencies
+ * @private
  */
 
 import { Command } from 'commander';
@@ -32,6 +33,7 @@ import { matrix } from './commands/matrix';
 
 /**
  * define common command options
+ * @private
  */
 
 const commonCmdOptions = ( cmd: any ) : any => {
@@ -49,6 +51,7 @@ const commonCmdOptions = ( cmd: any ) : any => {
 
 /**
  * create a new CLI program
+ * @private
  */
 
 const program = new Command ();
