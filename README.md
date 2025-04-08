@@ -1,2 +1,3 @@
 # cmpstr-cli
- CLI for CmpStr npm package
+
+CLI for CmpStr npm package
