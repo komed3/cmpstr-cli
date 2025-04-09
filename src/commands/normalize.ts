@@ -16,6 +16,7 @@ import { mergeConfig } from '../utils/mergeConfig.js';
 import { validateConfig } from '../utils/validateConfig.js';
 import { readInput } from '../utils/readInput.js';
 import { readList } from '../utils/readList.js';
+import { parseOutput } from '../utils/parseOutput.js';
 
 export async function normalize (
     input: string,
@@ -39,5 +40,7 @@ export async function normalize (
     const res = cfg.async
         ? await cmp.normalizeAsync( data, cfg?.flags )
         : cmp.normalize( data, cfg?.flags );
+
+    parseOutput( res, input, cfg, cmd );
 
 }
