@@ -10,7 +10,6 @@
   "version": "1.0.0",
   "license": "MIT",
   "type": "module",
-  "main": "src/index.ts",
   "bin": {
     "cmpstr": "./dist/index.js"
   },
