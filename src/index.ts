@@ -36,13 +36,13 @@ import { matrix } from './commands/matrix.js';
 const commonCmdOptions = ( cmd: any ) : any => {
 
     return cmd
-        .option( '-a, --algo <name>', 'Algorithm to use' )
-        .option( '-A, --async', 'Asynchronous processing' )
-        .option( '-f, --flags <string>', 'Normalization flags' )
-        .option( '-o, --options <json>', 'Additional algorithm options as JSON' )
-        .option( '-c, --config <path>', 'Path to config file (YAML or JSON)' )
+        .option( '-a, --algo <name>', 'algorithm to use' )
+        .option( '-A, --async', 'asynchronous processing' )
+        .option( '-f, --flags <string>', 'normalization flags' )
+        .option( '-o, --options <json>', 'additional algorithm options as JSON (for Windows use "" instead of ")' )
+        .option( '-c, --config <path>', 'path to config file (YAML or JSON)' )
         .option( '-w, --write <path>', 'write result to file instead of stdout' )
-        .option( '-V, --verbose', 'Output additional information' );
+        .option( '-V, --verbose', 'output additional information' );
 
 };
 
@@ -64,37 +64,37 @@ program
 
 program
     .command( 'normalize <input>' )
-    .description( 'Normalize a string or list' )
-    .option( '-l, --list', 'Input will be treated as list' )
-    .option( '-A, --async', 'Asynchronous processing' )
-    .option( '-f, --flags <string>', 'Normalization flags' )
-    .option( '-c, --config <path>', 'Path to config file (YAML or JSON)' )
+    .description( 'normalize a string or list' )
+    .option( '-l, --list', 'input will be treated as list' )
+    .option( '-A, --async', 'asynchronous processing' )
+    .option( '-f, --flags <string>', 'normalization flags' )
+    .option( '-c, --config <path>', 'path to config file (YAML or JSON)' )
     .option( '-w, --write <path>', 'write result to file instead of stdout' )
-    .option( '-V, --verbose', 'Output additional information' )
+    .option( '-V, --verbose', 'output additional information' )
     .action( normalize );
 
 commonCmdOptions( program
     .command( 'compare <base> <test>' )
-    .description( 'Compares two strings and returns their similarity score' )
+    .description( 'compares two strings and returns their similarity score' )
     .action( compare )
 );
 
 commonCmdOptions( program
     .command( 'match <base> <list>' )
-    .description( 'Compares an array of strings against a string, sorted by similarity' )
-    .option( '-t, --threshold <number>', 'Threshold to recognize a match (match command only)' )
+    .description( 'compares an array of strings against a string, sorted by similarity' )
+    .option( '-t, --threshold <number>', 'threshold to recognize a match (match command only)' )
     .action( match )
 );
 
 commonCmdOptions( program
     .command( 'closest <base> <list>' )
-    .description( 'Returns the best match of a list against a string' )
+    .description( 'returns the best match of a list against a string' )
     .action( closest )
 );
 
 commonCmdOptions( program
     .command( 'matrix <list>' )
-    .description( 'Returns the 2D array representing the similarity matrix' )
+    .description( 'returns the 2D array representing the similarity matrix' )
     .action( matrix )
 );
 

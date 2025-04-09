@@ -13,11 +13,13 @@ import { parseOptions } from './parseOptions.js';
 
 export function mergeConfig ( cli: any, cfg: Record<string, any> ) : ConfigOptions {
 
+    const algo = cli.algo || cfg.algo || 'dice';
+
     return {
-        algo: cli.algo || cfg.algo || 'dice',
+        algo: algo,
         flags: cli.flags || cfg.flags || '',
         threshold: cli.threshold || cfg.threshold || 0,
-        options: parseOptions( cli.options ) || cfg.options || {},
+        options: parseOptions( cli.options ) || cfg.options[ algo ] || {},
         async: cli.async || cfg.async || false,
         verbose: cli.verbose || cfg.verbose || false
     } as ConfigOptions;
