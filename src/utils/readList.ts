@@ -28,11 +28,11 @@ export async function readList ( source: string ) : Promise<string[]> {
 
         return text.split(
             /\n/.exec( text ) ? /\r?\n/ : /\,/
-        ).map( l => l.trim() ).filter( Boolean );
+        ).map( l => l.trim() ).filter( Boolean ) as string[];
 
     } catch {
 
-        return [];
+        return [] as string[];
 
     }
 

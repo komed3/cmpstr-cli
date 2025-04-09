@@ -28,11 +28,11 @@ export async function readInput ( source: string ) : Promise<string> {
 
         return (
             await fs.readFile( source, 'utf-8' )
-        ).trim();
+        ).trim() as string;
 
     } catch {
 
-        return source.trim();
+        return source.trim() as string;
 
     }
 

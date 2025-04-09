@@ -19,29 +19,43 @@ import yaml from 'yaml';
  * @public
  * 
  * @param {string} cfgPath path to config file
- * @returns {Promise<any>} config
+ * @returns {Promise<Record<string, any>>} config
  * @throws {Error} if file type is not supported
  */
 
-export async function loadConfig ( cfgPath: string ) : Promise<any> {
+export async function loadConfig ( cfgPath?: string ) : Promise<Record<string, any>> {
 
-    const content = await fs.readFile( cfgPath, 'utf-8' );
-    const ext = path.extname( cfgPath ).toLowerCase();
+    const filePath = cfgPath
+        ? path.resolve( cfgPath )
+        : path.resolve( __dirname, '../default.yaml' );
 
-    if ( ext === '.yaml' || ext === '.yml' ) {
+    try {
 
-        return yaml.parse( content );
+        const content = await fs.readFile( filePath, 'utf-8' );
+        const ext = path.extname( filePath ).toLowerCase();
+
+        switch ( ext ) {
+
+            case '.yaml':
+            case '.yml':
+                return yaml.parse( content ) as Record<string, any>;
+
+            case '.json':
+                return JSON.parse( content ) as Record<string, any>;
+
+            default:
+                throw new Error (
+                    `Unsupported config format: ${ext}`
+                );
+
+        }
+
+    } catch {
+
+        throw new Error (
+            `Failed to load config from ${filePath}`
+        )
 
     }
-
-    else if ( ext === '.json' ) {
-
-        return JSON.parse( content );
-
-    }
-
-    throw new Error(
-        `Unsupported config format: ${ext}`
-    );
 
 }

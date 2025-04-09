@@ -18,17 +18,17 @@ export function parseOptions ( options: string | undefined ) : Record<string, an
 
     if ( !options ) {
 
-        return undefined;
+        return undefined as undefined;
 
     }
 
     try {
 
-        return JSON.parse( options );
+        return JSON.parse( options ) as Record<string, any>;
 
     } catch {
 
-        throw new Error(
+        throw new Error (
             `Invalid JSON provided in --options`
         );
 
