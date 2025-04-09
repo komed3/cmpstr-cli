@@ -41,12 +41,13 @@ Normalize a single string or list of strings.
 
 ```bash
 cmpstr normalize "Hello World!" --flags si
-cmpstr normalize --list "f22oo,bar1,2baz4" -f n
+cmpstr normalize --list "f22oo bar1 2baz4" -f n -d " " --async
 ```
 
 **Options:**
 
 `-l, --list` – interpret input as a list  
+`-d, --delimiter <string>` – list input delimiter  
 `-f, --flags <string>` – normalization flags  
 `-c, --config <path>` – load config from YAML/JSON  
 `-w, --write <path>` – write result to file  
@@ -58,7 +59,8 @@ cmpstr normalize --list "f22oo,bar1,2baz4" -f n
 Compare two strings and return a similarity score (0 to 1).
 
 ```bash
-cmpstr compare "hello" "HALLO" -f i --algo levenshtein
+cmpstr compare "hello" "HALLO" -f i --verbose
+cmpstr compare ./fileA.txt ./fileB.txt --algo cosine -A
 ```
 
 **Options:**
@@ -81,7 +83,8 @@ cmpstr match "test" ./list.txt -f ik -t 0.8
 
 **Options:**
 
-`-t, --threshold <number>` – match threshold (0..1)
+`-t, --threshold <number>` – match threshold (0..1)  
+`-d, --delimiter <string>` – list input delimiter
 
 Other options identical to `compare`.
 
@@ -95,7 +98,9 @@ cmpstr closest "query" ./data.txt
 
 **Options:**
 
-Same options as `compare`.
+`-d, --delimiter <string>` – list input delimiter
+
+Other options identical to `compare`.
 
 ### `cmpstr matrix <list> [options]`
 
@@ -103,7 +108,7 @@ Return a 2D similarity matrix for a list.
 
 **Options:**
 
-Same options as `compare`.
+Same options as `closest`.
 
 ## Config Files
 
@@ -121,6 +126,7 @@ Example `default.yaml` is automatically loaded if no other is provided:
 algorithm: dice
 flags: ''
 threshold: 0
+delimiter: ','
 async: false
 verbose: false
 options: {}
