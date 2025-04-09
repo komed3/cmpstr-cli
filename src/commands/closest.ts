@@ -35,7 +35,7 @@ export async function closest (
 
     const [ base, list ] = await Promise.all( [
         readInput( a ),
-        readList( b )
+        readList( b, cfg.delimiter )
     ] );
 
     measurePerf.start();

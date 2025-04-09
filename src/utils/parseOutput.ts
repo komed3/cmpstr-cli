@@ -61,6 +61,7 @@ export function parseOutput (
         console.log( chalk.blue( 'Algorithm:' ), cfg.algo || 'undefined' );
         console.log( chalk.blue( 'Flags:' ), cfg.flags || 'none' );
         console.log( chalk.blue( 'Threshold:' ), cfg.threshold || '0' );
+        console.log( chalk.blue( 'Delimiter:' ), cfg.delimiter || ',' );
         console.log( chalk.blue( 'Async:' ), cfg.async ? 'yes' : 'no' );
 
         if ( cfg.options && Object.keys( cfg.options ).length > 0 ) {

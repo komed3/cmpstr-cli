@@ -19,6 +19,7 @@ export function mergeConfig ( cli: any, cfg: Record<string, any> ) : ConfigOptio
         algo: algo,
         flags: cli.flags || cfg.flags || '',
         threshold: cli.threshold || cfg.threshold || 0,
+        delimiter: cli.delimiter || cfg.delimiter || ',',
         options: parseOptions( cli.options ) || cfg.options[ algo ] || {},
         async: cli.async || cfg.async || false,
         verbose: cli.verbose || cfg.verbose || false

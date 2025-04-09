@@ -31,7 +31,7 @@ export async function matrix (
 
     validateConfig( cfg );
 
-    const list = await readList( a );
+    const list = await readList( a, cfg.delimiter );
 
     measurePerf.start();
 

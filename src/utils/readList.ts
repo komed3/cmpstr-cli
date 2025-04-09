@@ -9,14 +9,17 @@
 
 import { readInput } from './readInput.js';
 
-export async function readList ( source: string ) : Promise<string[]> {
+export async function readList (
+    source: string,
+    delimiter: string = ','
+) : Promise<string[]> {
 
     try {
 
         const text = await readInput ( source );
 
         return text.split(
-            /\n/.exec( text ) ? /\r?\n/ : /\,/
+            /\n/.exec( text ) ? /\r?\n/ : delimiter
         ).map( l => l.trim() ).filter( Boolean ) as string[];
 
     } catch {

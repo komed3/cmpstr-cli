@@ -68,6 +68,7 @@ program
     .command( 'normalize <input>' )
     .description( 'normalize a string or list' )
     .option( '-l, --list', 'input will be treated as list' )
+    .option( '-d, --delimiter <string>', 'list input delimiter' )
     .option( '-A, --async', 'asynchronous processing' )
     .option( '-f, --flags <string>', 'normalization flags' )
     .option( '-c, --config <path>', 'path to config file (YAML or JSON)' )
@@ -85,18 +86,21 @@ commonCmdOptions( program
     .command( 'match <base> <list>' )
     .description( 'compares an array of strings against a string, sorted by similarity' )
     .option( '-t, --threshold <number>', 'threshold to recognize a match (match command only)' )
+    .option( '-d, --delimiter <string>', 'list input delimiter' )
     .action( match )
 );
 
 commonCmdOptions( program
     .command( 'closest <base> <list>' )
     .description( 'returns the best match of a list against a string' )
+    .option( '-d, --delimiter <string>', 'list input delimiter' )
     .action( closest )
 );
 
 commonCmdOptions( program
     .command( 'matrix <list>' )
     .description( 'returns the 2D array representing the similarity matrix' )
+    .option( '-d, --delimiter <string>', 'list input delimiter' )
     .action( matrix )
 );
 

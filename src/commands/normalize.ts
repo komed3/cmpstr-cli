@@ -32,8 +32,8 @@ export async function normalize (
 
     validateConfig( cfg );
 
-    const data = options.list || false
-        ? await readList( input )
+    const data = cmd.opts().list || false
+        ? await readList( input, cfg.delimiter )
         : await readInput( input );
 
     measurePerf.start();

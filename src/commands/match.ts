@@ -35,7 +35,7 @@ export async function match (
 
     const [ base, list ] = await Promise.all( [
         readInput( a ),
-        readList( b )
+        readList( b, cfg.delimiter )
     ] );
 
     measurePerf.start();

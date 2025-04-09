@@ -1,6 +1,7 @@
 algorithm: dice
 flags: ''
 threshold: 0
+delimiter: ','
 async: false
 verbose: false
 options: {}
