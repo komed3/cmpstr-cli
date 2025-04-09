@@ -1,9 +1,9 @@
 /**
- * interface CmpStrOptions
+ * interface ConfigOptions
  * @public
  */
 
-export interface CmpStrOptions {
+export interface ConfigOptions {
     algo?: string;
     flags?: string;
     options?: Record<string, any>;

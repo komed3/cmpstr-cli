@@ -10,7 +10,7 @@
  * @private
  */
 
-import { CmpStrOptions } from '../types';
+import { ConfigOptions } from '../types';
 import { parseOptions } from './parseOptions';
 
 /**
@@ -19,10 +19,10 @@ import { parseOptions } from './parseOptions';
  * 
  * @param {Record<string, any>} cli CLI options
  * @param {Record<string, any>} cfg config options
- * @returns {CmpStrOptions} merged options
+ * @returns {ConfigOptions} merged options
  */
 
-export function mergeConfig ( cli: any, cfg: Record<string, any> ) : CmpStrOptions {
+export function mergeConfig ( cli: any, cfg: Record<string, any> ) : ConfigOptions {
 
     return {
         algo: cli.algo || cfg.algo || 'dice',
@@ -30,6 +30,6 @@ export function mergeConfig ( cli: any, cfg: Record<string, any> ) : CmpStrOptio
         options: parseOptions( cli.options ) || cfg.options || {},
         async: cli.async || cfg.async || false,
         verbose: cli.verbose || cfg.verbose || false
-    } as CmpStrOptions;
+    } as ConfigOptions;
 
 }
