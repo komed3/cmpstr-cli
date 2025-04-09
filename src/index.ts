@@ -18,7 +18,7 @@
  *   --verbose, --async, --write
  *
  * @author Paul Köhler (komed3)
- * @version 1.0.0
+ * @version 1.0.1
  * @license MIT
  */
 
@@ -58,7 +58,7 @@ const program = new Command ();
 program
     .name( 'cmpstr' )
     .description( 'CLI for the lightweight CmpStr package' )
-    .version( '1.0.0', '--vers' );
+    .version( '1.0.1', '--vers' );
 
 /**
  * define commands
