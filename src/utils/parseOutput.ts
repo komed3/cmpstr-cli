@@ -35,15 +35,21 @@ export function parseOutput (
 
     if ( cmd.opts().write ) {
 
-        fs.writeFileSync( cmd.opts().write, output, 'utf-8' );
+        try {
 
-        if ( cfg.verbose ) {
+            fs.writeFileSync( cmd.opts().write, output, 'utf-8' );
 
-            console.log();
+        } catch ( err: any ) {
 
-            console.log( chalk.green( `Result written to "${cmd.opts().write}"` ) );
+            console.error( chalk.red( `Failed to write output: ${err.message}` ) );
+
+            process.exit( 1 );
 
         }
+
+        console.log();
+
+        console.log( chalk.green( `Result written to "${cmd.opts().write}"` ) );
 
     }
 
