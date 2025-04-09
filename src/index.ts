@@ -26,6 +26,7 @@ import { normalize } from './commands/normalize.js';
 import { compare } from './commands/compare.js';
 import { match } from './commands/match.js';
 import { closest } from './commands/closest.js';
+import { matrix } from './commands/matrix.js';
 
 /**
  * define common command options
@@ -89,6 +90,12 @@ commonCmdOptions( program
     .command( 'closest <base> <list>' )
     .description( 'Returns the best match of a list against a string' )
     .action( closest )
+);
+
+commonCmdOptions( program
+    .command( 'matrix <list>' )
+    .description( 'Returns the 2D array representing the similarity matrix' )
+    .action( matrix )
 );
 
 /**

@@ -1,5 +1,5 @@
 /**
- * Command `match` for `cmpstr-cli`
+ * Command `closest` for `cmpstr-cli`
  * 
  * Compares an array of strings against a
  * string, sorted by similarity.
