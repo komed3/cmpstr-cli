@@ -1,0 +1,6 @@
+algorithm: dice
+flags: ''
+async: false
+verbose: false
+options:
+  threshold: 0
