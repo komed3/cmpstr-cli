@@ -12,24 +12,17 @@
  *   - matrix: generate similarity matrix between two lists
  *
  * Common options include:
- *   --list, --flags, --algo, --options, --config, --verbose, --async
+ *   --list, --flags, --algo, --options, --config,
+ *   --verbose, --async, --output
  *
  * @author Paul Köhler (komed3)
  * @version 1.0.0
  * @license MIT
  */
 
-/**
- * module dependencies
- * @private
- */
-
 import { Command } from 'commander';
-import { normalize } from './commands/normalize';
-import { compare } from './commands/compare';
-import { match } from './commands/match';
-import { closest } from './commands/closest';
-import { matrix } from './commands/matrix';
+import { normalize } from './commands/normalize.js';
+import { compare } from './commands/compare.js';
 
 /**
  * define common command options
@@ -45,7 +38,8 @@ const commonCmdOptions = ( cmd: any ) : any => {
         .option( '-f, --flags <string>', 'Normalization flags' )
         .option( '-o, --options <json>', 'Additional algorithm options as JSON' )
         .option( '-c, --config <path>', 'Path to config file (YAML or JSON)' )
-        .option( '-v, --verbose', 'Output additional information' );
+        .option( '-w, --write <path>', 'write result to file instead of stdout' )
+        .option( '-V, --verbose', 'Output additional information' );
 
 };
 
@@ -59,7 +53,7 @@ const program = new Command ();
 program
     .name( 'cmpstr' )
     .description( 'CLI for the lightweight CmpStr package' )
-    .version( '1.0.0' );
+    .version( '1.0.0', '--vers' );
 
 /**
  * define commands
@@ -69,34 +63,17 @@ program
     .command( 'normalize <input>' )
     .description( 'Normalize a string or list' )
     .option( '-l, --list <path>', 'Path to file or comma-separated list' )
-    .option( '-f, --flags <string>', 'Normalization flags' )
     .option( '-A, --async', 'Asynchronous processing' )
+    .option( '-f, --flags <string>', 'Normalization flags' )
     .option( '-c, --config <path>', 'Path to config file (YAML or JSON)' )
-    .option( '-v, --verbose', 'Output additional information' )
+    .option( '-w, --write <path>', 'write result to file instead of stdout' )
+    .option( '-V, --verbose', 'Output additional information' )
     .action( normalize );
 
 commonCmdOptions( program
     .command( 'compare <a> <b>' )
     .description( 'Compare two strings or a string against a list' )
     .action( compare )
-);
-
-commonCmdOptions( program
-    .command( 'match <a> <b>' )
-    .description( 'Match string a against list b' )
-    .action( match )
-);
-
-commonCmdOptions( program
-    .command( 'closest <a> <b>' )
-    .description( 'Find closest string to a from list b' )
-    .action( closest )
-);
-
-commonCmdOptions( program
-    .command( 'matrix <a> <b>' )
-    .description( 'Generate similarity matrix from input lists' )
-    .action( matrix )
 );
 
 /**
