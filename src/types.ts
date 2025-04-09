@@ -1,6 +1,7 @@
 export interface ConfigOptions {
     algo?: string;
     flags?: string;
+    threshold?: number,
     options?: Record<string, any>;
     async?: boolean;
     verbose?: boolean;

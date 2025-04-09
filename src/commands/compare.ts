@@ -15,6 +15,7 @@ import { loadConfig } from '../utils/loadConfig.js';
 import { mergeConfig } from '../utils/mergeConfig.js';
 import { validateConfig } from '../utils/validateConfig.js';
 import { readInput } from '../utils/readInput.js';
+import { readList } from '../utils/readList.js';
 import { parseOutput } from '../utils/parseOutput.js';
 
 export async function compare (
@@ -24,8 +25,6 @@ export async function compare (
     cmd: Command
 ): Promise<void> {
 
-    measurePerf.start();
-
     const cfg = mergeConfig(
         options,
         await loadConfig( options?.config )
@@ -33,19 +32,40 @@ export async function compare (
 
     validateConfig( cfg );
 
-    const cmp = new CmpStrAsync();
-
     const [ strA, strB ] = await Promise.all( [
         readInput( a ),
         readInput( b )
     ] );
 
-    const res = cfg.async
-        ? await cmp.compareAsync( cfg.algo || 'dice', strA, strB, cfg )
-        : cmp.compare( cfg.algo || 'dice', strA, strB, cfg );
+    measurePerf.start();
 
-    const perf = measurePerf.end();
+    const cmp = new CmpStrAsync(
+        cfg.algo || 'dice',
+        strA
+    );
 
-    parseOutput( res.toString(), [ strA, strB ], cfg, cmd, perf );
+    if ( cmd.opts().list ) {
+
+        const list = await readList( strB );
+
+        const res = cfg.async
+            ? await cmp.batchTestAsync( list, cfg )
+            : cmp.batchTest( list, cfg );
+
+        const perf = measurePerf.end();
+
+        parseOutput( res, [ strA, strB ], cfg, cmd, perf );
+
+    } else {
+
+        const res = cfg.async
+            ? await cmp.testAsync( strB, cfg )
+            : cmp.test( strB, cfg );
+
+        const perf = measurePerf.end();
+
+        parseOutput( res.toString(), [ strA, strB ], cfg, cmd, perf );
+
+    }
 
 }

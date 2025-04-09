@@ -13,18 +13,16 @@ import chalk from 'chalk';
 
 import { ConfigOptions, PerfResult } from '../types.js';
 
-const output2Str = ( output: string | string[] ) : string => {
+const output2Str = ( output: any ) : string => {
 
-    return (
-        Array.isArray( output )
-            ? output.join( '\n' )
-            : output
-    ) as string;
+    return typeof output === 'string'
+        ? output
+        : JSON.stringify( output, null, 2 ) as string;
 
 };
 
 export function parseOutput (
-    res: string | string[],
+    res: any,
     input: string | string[],
     cfg: ConfigOptions,
     cmd: Command,
@@ -62,11 +60,12 @@ export function parseOutput (
         console.log( chalk.blue( 'Command:' ), cmd.name() );
         console.log( chalk.blue( 'Algorithm:' ), cfg.algo || 'undefined' );
         console.log( chalk.blue( 'Flags:' ), cfg.flags || 'none' );
+        console.log( chalk.blue( 'Threshold:' ), cfg.threshold || '0' );
         console.log( chalk.blue( 'Async:' ), cfg.async ? 'yes' : 'no' );
 
         if ( cfg.options && Object.keys( cfg.options ).length > 0 ) {
 
-            console.log( chalk.blue( 'Options:' ), JSON.stringify( cfg.options, null, 2 ) );
+            console.log( chalk.blue( 'Options:' ), output2Str( cfg.options ) );
 
         }
 

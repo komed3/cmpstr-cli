@@ -32,10 +32,11 @@ import { compare } from './commands/compare.js';
 const commonCmdOptions = ( cmd: any ) : any => {
 
     return cmd
-        .option( '-l, --list <path>', 'Path to file or comma-separated list' )
+        .option( '-l, --list', 'Second argument is treated as list' )
         .option( '-a, --algo <name>', 'Algorithm to use' )
         .option( '-A, --async', 'Asynchronous processing' )
         .option( '-f, --flags <string>', 'Normalization flags' )
+        .option( '-t, --threshold <number>', 'Threshold to recognize a match (match command only)' )
         .option( '-o, --options <json>', 'Additional algorithm options as JSON' )
         .option( '-c, --config <path>', 'Path to config file (YAML or JSON)' )
         .option( '-w, --write <path>', 'write result to file instead of stdout' )
@@ -62,7 +63,7 @@ program
 program
     .command( 'normalize <input>' )
     .description( 'Normalize a string or list' )
-    .option( '-l, --list <path>', 'Path to file or comma-separated list' )
+    .option( '-l, --list', 'Input will be treated as list' )
     .option( '-A, --async', 'Asynchronous processing' )
     .option( '-f, --flags <string>', 'Normalization flags' )
     .option( '-c, --config <path>', 'Path to config file (YAML or JSON)' )

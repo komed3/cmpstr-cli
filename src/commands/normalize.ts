@@ -25,8 +25,6 @@ export async function normalize (
     cmd: Command
 ) : Promise<void> {
 
-    measurePerf.start();
-
     const cfg = mergeConfig(
         options,
         await loadConfig( options?.config )
@@ -34,11 +32,13 @@ export async function normalize (
 
     validateConfig( cfg );
 
-    const cmp = new CmpStrAsync ();
-
     const data = options.list || false
         ? await readList( input )
         : await readInput( input );
+
+    measurePerf.start();
+
+    const cmp = new CmpStrAsync ();
 
     const res = cfg.async
         ? await cmp.normalizeAsync( data, cfg?.flags )

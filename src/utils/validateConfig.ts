@@ -8,7 +8,7 @@
  */
 
 import { CmpStr } from 'cmpstr';
-import { ConfigOptions } from '../types';
+import { ConfigOptions } from '../types.js';
 
 export function validateConfig ( cfg: ConfigOptions ) : boolean {
 

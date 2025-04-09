@@ -1,6 +1,6 @@
 algorithm: dice
 flags: ''
+threshold: 0
 async: false
 verbose: false
-options:
-  threshold: 0
+options: {}
