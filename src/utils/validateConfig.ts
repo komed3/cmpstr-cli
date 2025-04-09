@@ -5,6 +5,11 @@
  * @license MIT
  */
 
+/**
+ * module dependencies
+ * @private
+ */
+
 import { ConfigOptions } from '../types';
 import { CmpStr } from 'cmpstr';
 
