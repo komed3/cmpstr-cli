@@ -1,24 +1,13 @@
 /**
  * Module `readList` for `cmpstr-cli`
  * 
+ * Reads input as list.
+ * 
  * @author Paul Köhler (komed3)
  * @license MIT
  */
 
-/**
- * module dependencies
- * @private
- */
-
-import { readInput } from './readInput';
-
-/**
- * reads input as list
- * @public
- * 
- * @param {string} source path to file or plain string
- * @returns {Promise<string[]>} list
- */
+import { readInput } from './readInput.js';
 
 export async function readList ( source: string ) : Promise<string[]> {
 

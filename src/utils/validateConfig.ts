@@ -1,26 +1,14 @@
 /**
  * Module `validateConfig` for `cmpstr-cli`
  * 
+ * Validates config options.
+ * 
  * @author Paul Köhler (komed3)
  * @license MIT
  */
 
-/**
- * module dependencies
- * @private
- */
-
-import { ConfigOptions } from '../types';
 import { CmpStr } from 'cmpstr';
-
-/**
- * validates config options
- * @public
- * 
- * @param {ConfigOptions} cfg config options
- * @returns {boolean} true, if validation runs through
- * @throws {Error} if config has invalid options
- */
+import { ConfigOptions } from '../types';
 
 export function validateConfig ( cfg: ConfigOptions ) : boolean {
 
