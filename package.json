@@ -23,7 +23,7 @@
     "url": "https://github.com/komed3/cmpstr-cli/issues"
   },
   "dependencies": {
-    "cmpstr": "^2.0.2",
+    "cmpstr": "^2.0.3",
     "commander": "^13.1.0",
     "yaml": "^2.7.1"
   },
