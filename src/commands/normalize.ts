@@ -16,6 +16,7 @@ import { mergeConfig } from '../utils/mergeConfig.js';
 import { validateConfig } from '../utils/validateConfig.js';
 import { readInput } from '../utils/readInput.js';
 import { readList } from '../utils/readList.js';
+import * as measurePerf from '../utils/measurePerf.js';
 import { parseOutput } from '../utils/parseOutput.js';
 
 export async function normalize (
@@ -23,6 +24,8 @@ export async function normalize (
     options : Record<string, any>,
     cmd: Command
 ) : Promise<void> {
+
+    measurePerf.start();
 
     const cfg = mergeConfig(
         options,
@@ -41,6 +44,8 @@ export async function normalize (
         ? await cmp.normalizeAsync( data, cfg?.flags )
         : cmp.normalize( data, cfg?.flags );
 
-    parseOutput( res, input, cfg, cmd );
+    const perf = measurePerf.end();
+
+    parseOutput( res, input, cfg, cmd, perf );
 
 }
