@@ -8,20 +8,18 @@
   },
   "homepage": "https://github.com/komed3/cmpstr-cli#readme",
   "version": "1.0.0",
+  "license": "MIT",
   "type": "module",
   "main": "src/index.ts",
   "bin": {
     "cmpstr": "./dist/index.js"
   },
-  "license": "MIT",
-  "keywords": [],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/komed3/cmpstr-cli.git"
-  },
-  "bugs": {
-    "url": "https://github.com/komed3/cmpstr-cli/issues"
-  },
+  "files": [
+    "dist",
+    "default.yaml",
+    "README.md",
+    "LICENSE"
+  ],
   "dependencies": {
     "chalk": "^5.4.1",
     "cmpstr": "^2.0.3",
@@ -32,5 +30,17 @@
     "@types/node": "^22.14.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.3"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js"
+  },
+  "keywords": [],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/komed3/cmpstr-cli.git"
+  },
+  "bugs": {
+    "url": "https://github.com/komed3/cmpstr-cli/issues"
   }
 }
