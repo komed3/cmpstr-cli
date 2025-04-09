@@ -11,12 +11,12 @@
 import { Command } from 'commander';
 import { CmpStrAsync } from 'cmpstr';
 
+import * as measurePerf from '../utils/measurePerf.js';
 import { loadConfig } from '../utils/loadConfig.js';
 import { mergeConfig } from '../utils/mergeConfig.js';
 import { validateConfig } from '../utils/validateConfig.js';
 import { readInput } from '../utils/readInput.js';
 import { readList } from '../utils/readList.js';
-import * as measurePerf from '../utils/measurePerf.js';
 import { parseOutput } from '../utils/parseOutput.js';
 
 export async function normalize (

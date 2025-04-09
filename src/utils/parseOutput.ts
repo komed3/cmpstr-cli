@@ -8,8 +8,20 @@
  */
 
 import { Command } from 'commander';
+import fs from 'fs';
 import chalk from 'chalk';
+
 import { ConfigOptions, PerfResult } from '../types.js';
+
+const output2Str = ( output: string | string[] ) : string => {
+
+    return (
+        Array.isArray( output )
+            ? output.join( '\n' )
+            : output
+    ) as string;
+
+};
 
 export function parseOutput (
     res: string | string[],
@@ -18,6 +30,22 @@ export function parseOutput (
     cmd: Command,
     perf?: PerfResult
 ) : void {
+
+    const output = output2Str( res );
+
+    if ( cmd.opts().write ) {
+
+        fs.writeFileSync( cmd.opts().write, output, 'utf-8' );
+
+        if ( cfg.verbose ) {
+
+            console.log();
+
+            console.log( chalk.green( `Result written to "${cmd.opts().write}"` ) );
+
+        }
+
+    }
 
     if ( cfg.verbose ) {
 
@@ -36,8 +64,8 @@ export function parseOutput (
 
         }
 
-        console.log( chalk.blue( 'Input:' ), Array.isArray( input ) ? input.join( ', ' ) : input );
-        console.log( chalk.blue( 'Result:' ), Array.isArray( res ) ? res.join( ', ' ) : res );
+        console.log( chalk.blue( 'Input:' ), output2Str( input ) );
+        console.log( chalk.blue( 'Result:' ), output );
 
         if ( perf ) {
 
@@ -54,7 +82,7 @@ export function parseOutput (
 
     } else {
 
-        console.log( res );
+        console.log( output );
 
     }
 
