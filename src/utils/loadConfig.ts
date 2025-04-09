@@ -9,12 +9,16 @@
  */
 
 import { promises as fs } from 'fs';
+import { fileURLToPath } from 'url';
 import path from 'path';
 import yaml from 'yaml';
 
+const __dirname = path.dirname( fileURLToPath( import.meta.url ) );
+
 export async function loadConfig ( cfgPath?: string ) : Promise<Record<string, any>> {
 
-    const filePath = path.resolve( cfgPath || './default.yaml' );
+    const defaultConfigPath = path.resolve( __dirname, '../../default.yaml' );
+    const filePath = path.resolve( cfgPath || defaultConfigPath );
 
     try {
 
