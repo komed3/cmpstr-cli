@@ -12,8 +12,8 @@
  *   - matrix: generate similarity matrix between two lists
  *
  * Common options include:
- *   --list, --flags, --algo, --options, --config,
- *   --verbose, --async, --output
+ *   --flags, --threshold, --algo, --options, --config,
+ *   --verbose, --async, --write
  *
  * @author Paul Köhler (komed3)
  * @version 1.0.0
@@ -23,6 +23,7 @@
 import { Command } from 'commander';
 import { normalize } from './commands/normalize.js';
 import { compare } from './commands/compare.js';
+import { match } from './commands/match.js';
 
 /**
  * define common command options
@@ -32,11 +33,9 @@ import { compare } from './commands/compare.js';
 const commonCmdOptions = ( cmd: any ) : any => {
 
     return cmd
-        .option( '-l, --list', 'Second argument is treated as list' )
         .option( '-a, --algo <name>', 'Algorithm to use' )
         .option( '-A, --async', 'Asynchronous processing' )
         .option( '-f, --flags <string>', 'Normalization flags' )
-        .option( '-t, --threshold <number>', 'Threshold to recognize a match (match command only)' )
         .option( '-o, --options <json>', 'Additional algorithm options as JSON' )
         .option( '-c, --config <path>', 'Path to config file (YAML or JSON)' )
         .option( '-w, --write <path>', 'write result to file instead of stdout' )
@@ -73,8 +72,15 @@ program
 
 commonCmdOptions( program
     .command( 'compare <a> <b>' )
-    .description( 'Compare two strings or a string against a list' )
+    .description( 'Compares two strings and returns their similarity score' )
     .action( compare )
+);
+
+commonCmdOptions( program
+    .command( 'match <a> <list>' )
+    .description( 'Compares an array of strings against a string, sorted by similarity' )
+    .option( '-t, --threshold <number>', 'Threshold to recognize a match (match command only)' )
+    .action( match )
 );
 
 /**

@@ -23,7 +23,7 @@ const output2Str = ( output: any ) : string => {
 
 export function parseOutput (
     res: any,
-    input: string | string[],
+    input: any,
     cfg: ConfigOptions,
     cmd: Command,
     perf?: PerfResult

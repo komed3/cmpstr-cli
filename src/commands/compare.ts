@@ -1,7 +1,8 @@
 /**
  * Command `compare` for `cmpstr-cli`
  * 
- * Compares two strings and returns their similarity score.
+ * Compares two strings and returns their
+ * similarity score.
  * 
  * @author Paul Köhler
  * @license MIT
@@ -15,7 +16,6 @@ import { loadConfig } from '../utils/loadConfig.js';
 import { mergeConfig } from '../utils/mergeConfig.js';
 import { validateConfig } from '../utils/validateConfig.js';
 import { readInput } from '../utils/readInput.js';
-import { readList } from '../utils/readList.js';
 import { parseOutput } from '../utils/parseOutput.js';
 
 export async function compare (
@@ -23,7 +23,7 @@ export async function compare (
     b: string,
     options: Record<string, any>,
     cmd: Command
-): Promise<void> {
+) : Promise<void> {
 
     const cfg = mergeConfig(
         options,
@@ -32,7 +32,7 @@ export async function compare (
 
     validateConfig( cfg );
 
-    const [ strA, strB ] = await Promise.all( [
+    const [ base, test ] = await Promise.all( [
         readInput( a ),
         readInput( b )
     ] );
@@ -41,31 +41,15 @@ export async function compare (
 
     const cmp = new CmpStrAsync(
         cfg.algo || 'dice',
-        strA
+        base
     );
 
-    if ( cmd.opts().list ) {
+    const res = cfg.async
+        ? await cmp.testAsync( test, cfg )
+        : cmp.test( test, cfg );
 
-        const list = await readList( strB );
+    const perf = measurePerf.end();
 
-        const res = cfg.async
-            ? await cmp.batchTestAsync( list, cfg )
-            : cmp.batchTest( list, cfg );
-
-        const perf = measurePerf.end();
-
-        parseOutput( res, [ strA, strB ], cfg, cmd, perf );
-
-    } else {
-
-        const res = cfg.async
-            ? await cmp.testAsync( strB, cfg )
-            : cmp.test( strB, cfg );
-
-        const perf = measurePerf.end();
-
-        parseOutput( res.toString(), [ strA, strB ], cfg, cmd, perf );
-
-    }
+    parseOutput( res.toString(), [ base, test ], cfg, cmd, perf );
 
 }
