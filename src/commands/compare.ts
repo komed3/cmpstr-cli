@@ -50,6 +50,6 @@ export async function compare (
 
     const perf = measurePerf.end();
 
-    parseOutput( res.toString(), [ base, test ], cfg, cmd, perf );
+    parseOutput( res?.toString(), [ base, test ], cfg, cmd, perf );
 
 }

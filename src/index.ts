@@ -21,9 +21,11 @@
  */
 
 import { Command } from 'commander';
+
 import { normalize } from './commands/normalize.js';
 import { compare } from './commands/compare.js';
 import { match } from './commands/match.js';
+import { closest } from './commands/closest.js';
 
 /**
  * define common command options
@@ -71,16 +73,22 @@ program
     .action( normalize );
 
 commonCmdOptions( program
-    .command( 'compare <a> <b>' )
+    .command( 'compare <base> <test>' )
     .description( 'Compares two strings and returns their similarity score' )
     .action( compare )
 );
 
 commonCmdOptions( program
-    .command( 'match <a> <list>' )
+    .command( 'match <base> <list>' )
     .description( 'Compares an array of strings against a string, sorted by similarity' )
     .option( '-t, --threshold <number>', 'Threshold to recognize a match (match command only)' )
     .action( match )
+);
+
+commonCmdOptions( program
+    .command( 'closest <base> <list>' )
+    .description( 'Returns the best match of a list against a string' )
+    .action( closest )
 );
 
 /**
