@@ -1,9 +1,13 @@
 'use strict';
 
+import { type Command } from 'commander';
 import { DiffChecker } from 'cmpstr';
 import { resolveInput } from '../utils/ResolveInput.js';
+import { parseOutput } from '../utils/ParseOutput.js';
 
-export async function diff ( a: string, b: string, opt?: Record<string, any> ) : Promise<void> {
+export async function diff ( a: string, b: string, opt: Record<string, any> = {}, cmd: Command ) : Promise<void> {
+
+    const { output } = cmd.parent!.opts();
 
     const diff = new DiffChecker (
         await resolveInput( a ),
@@ -17,6 +21,6 @@ export async function diff ( a: string, b: string, opt?: Record<string, any> ) :
         }
     );
 
-    console.log( diff.getCLIDiff() );
+    parseOutput( output ? diff.getASCIIDiff() : diff.getCLIDiff(), cmd );
 
 }
