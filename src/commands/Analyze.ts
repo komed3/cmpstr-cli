@@ -8,6 +8,10 @@ export async function analyze ( input: string ) : Promise<void> {
 
     const res = new TextAnalyzer ( await resolveInput( input ) );
 
+    const heading = ( label: string ) : void => {
+        console.log( '\n' + chalk.magenta( `[${label}]` ) );
+    };
+
     const str = ( label: string, val: string ) : void => {
         console.log(
             chalk.yellow( `> ${label}: ` ).padEnd( 40, ' ' ) +
@@ -29,30 +33,35 @@ export async function analyze ( input: string ) : Promise<void> {
         );
     };
 
-    console.log();
-    console.log( '[Overview]' );
-
+    heading( 'Overview' );
     num( 'Text length', 'getLength', 0 );
     num( 'Word count', 'getWordCount', 0 );
     num( 'Sentence count', 'getSentenceCount', 0 );
     num( 'Avg. word length', 'getAvgWordLength' );
     num( 'Avg. sentence length', 'getAvgSentenceLength' );
 
-    console.log();
-    console.log( '[Words]' );
-
+    heading( 'Words' );
     obj( 'Histogram', 'getWordHistogram' );
     str( 'Most common words', 'getMostCommonWords' );
     str( 'Hapax legomena', 'getHapaxLegomena' );
 
-    console.log();
-    console.log( '[Special]' );
-
+    heading( 'Special' );
     str( 'Has numbers', 'hasNumbers' );
     num( 'Upper case ratio', 'getUpperCaseRatio' );
     num( 'Long word ratio', 'getLongWordRatio' );
     num( 'Short word ratio', 'getShortWordRatio' );
     obj( 'Char frequency', 'getCharFrequency' );
     obj( 'Unicode stats', 'getUnicodeStats' );
+
+    heading( 'Syllables (estimated)' );
+    num( 'Syllables count', 'getSyllablesCount', 0 );
+    num( 'Monosyllabic words', 'getMonosyllabicWordCount', 0 );
+
+    heading( 'Reading' );
+    num( 'Honore’s R', 'getHonoresR' );
+    num( 'Reading time (min.)', 'getReadingTime' );
+    num( 'Readability score', 'getReadabilityScore' );
+    num( 'LIX score', 'getLIXScore' );
+    str( 'Wiener Sachtextformel', 'getWSTFScore' );
 
 }
