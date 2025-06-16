@@ -21,7 +21,7 @@
   ],
   "dependencies": {
     "chalk": "^5.4.1",
-    "cmpstr": "^2.0.3",
+    "cmpstr": "^3.0.1",
     "commander": "^13.1.0",
     "yaml": "^2.7.1"
   },
