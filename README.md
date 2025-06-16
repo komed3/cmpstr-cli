@@ -1,6 +1,6 @@
 # CmpStr CLI
 
-cmpstr-cli is a Node.js CLI wrapper for the [CmpStr](https://www.npmjs.com/package/cmpstr) package. It enables direct use of CmpStr’s core features such as string normalization, similarity scoring, and matrix comparison via the terminal.
+**cmpstr-cli** is a Node.js CLI wrapper for the [CmpStr](https://www.npmjs.com/package/cmpstr) package. It enables direct use of CmpStr’s core features such as string normalization, similarity scoring, and matrix comparison via the terminal.
 
 ## Installation
 
