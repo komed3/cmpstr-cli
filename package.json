@@ -30,8 +30,7 @@
     "typescript": "^5.8.3"
   },
   "scripts": {
-    "build": "tsc",
-    "start": "node dist/index.js"
+    "build": "tsc"
   },
   "keywords": [
     "cli-tool", "cli-wrapper", "string-similarity", "string-comparison", "phonetic-search",
