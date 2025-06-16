@@ -1,3 +1,13 @@
+/**
+ * Parse Output Utility
+ * src/utils/ParseOutput.ts
+ * 
+ * Formats and displays result(s) from commands.
+ * 
+ * @author Paul Köhler (komed3)
+ * @license MIT
+ */
+
 'use strict';
 
 import { type Command } from 'commander';
