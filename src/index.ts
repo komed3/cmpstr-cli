@@ -3,6 +3,7 @@
 'use strict';
 
 import { Command } from 'commander';
+import { normalize } from './commands/Normalize.js';
 import { analyze } from './commands/Analyze.js';
 import { diff } from './commands/Diff.js';
 
@@ -10,8 +11,26 @@ const program = new Command ();
 
 program
     .name( 'cmpstr' )
-    .description( 'CLI for the lightweight CmpStr package' )
+    .description( 'CLI for the lightweight CmpStr package. It enables direct use of CmpStr’s ' +
+                  'core features such as string normalization, similarity scoring, and matrix ' +
+                  'comparison via the terminal.' )
     .version( '2.0.0', '-v, --vers' );
+
+program
+    .command( 'normalize <input>' )
+    .description( 'Normalizes the input string to allow case insensive, collapse whitespaces and more.' )
+    .option( '--flags <string>', 'Normalization flags as string (e.g., `itw`)' )
+    .option( '-d, --nfd', 'Normalize to NFD (Normalization Form Decomposed)' )
+    .option( '-u, --nfc', 'Normalize to NFC (Normalization Form Composed)' )
+    .option( '-x, --nfkc', 'Normalize to NFKC (Normalization Form Compatibility Composed)' )
+    .option( '-w, --collapse', 'Collapse whitespace' )
+    .option( '-t, --trim', 'Remove leading and trailing whitespace' )
+    .option( '-r, --dedupt', 'Remove double characters' )
+    .option( '-s, --special', 'Remove punctuation / special characters' )
+    .option( '-k, --nolet', 'Remove non-letter characters' )
+    .option( '-n, --nonum', 'Remove non-number characters' )
+    .option( '-i, --insensitive', 'Case insensitive (convert to lowercase)' )
+    .action( normalize );
 
 program
     .command( 'analyze <input>' )
