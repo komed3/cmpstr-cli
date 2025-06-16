@@ -1,37 +1,31 @@
 'use strict';
 
+import { type Command } from 'commander';
 import { TextAnalyzer } from 'cmpstr';
 import { resolveInput } from '../utils/ResolveInput.js';
-import chalk from 'chalk';
+import { parseOutput } from '../utils/ParseOutput.js';
 
-export async function analyze ( input: string ) : Promise<void> {
+export async function analyze ( input: string, opt: Record<string, any> = {}, cmd: Command ) : Promise<void> {
+
+    void opt;
 
     const res = new TextAnalyzer ( await resolveInput( input ) );
 
-    const heading = ( label: string ) : void => {
-        console.log( '\n' + chalk.magenta( `[${label}]` ) );
-    };
+    const out: string[] = [];
 
-    const str = ( label: string, val: string ) : void => {
-        console.log(
-            chalk.yellow( `> ${label}: ` ).padEnd( 40, ' ' ) +
-            ( res as any )[ val ]()
-        );
-    };
+    const heading = ( label: string ) : number => out.push( `\n## ${ label.toUpperCase() }` );
 
-    const num = ( label: string, val: string, decimals: number = 4 ) : void => {
-        console.log(
-            chalk.yellow( `> ${label}: ` ).padEnd( 40, ' ' ) +
-            ( ( res as any )[ val ]() ).toFixed( decimals )
-        );
-    };
+    const str = ( label: string, val: string ) : number => out.push(
+        `- ${label}: `.padEnd( 40, ' ' ) + ( res as any )[ val ]()
+    );
 
-    const obj = ( label: string, val: string ) : void => {
-        console.log(
-            chalk.yellow( `> ${label}: ` ).padEnd( 40, ' ' ) +
-            JSON.stringify( ( res as any )[ val ]() )
-        );
-    };
+    const num = ( label: string, val: string, decimals: number = 4 ) : number => out.push(
+        `- ${label}: `.padEnd( 40, ' ' ) + ( ( res as any )[ val ]() ).toFixed( decimals )
+    );
+
+    const obj = ( label: string, val: string ) : number => out.push(
+        `- ${label}: `.padEnd( 40, ' ' ) + JSON.stringify( ( res as any )[ val ]() )
+    );
 
     heading( 'Overview' );
     num( 'Text length', 'getLength', 0 );
@@ -63,5 +57,7 @@ export async function analyze ( input: string ) : Promise<void> {
     num( 'Readability score', 'getReadabilityScore' );
     num( 'LIX score', 'getLIXScore' );
     str( 'Wiener Sachtextformel', 'getWSTFScore' );
+
+    parseOutput( out.join( '\n' ).substring( 2 ), cmd );
 
 }
