@@ -1,7 +1,7 @@
 'use strict';
 
 import { type Command } from 'commander';
-import { CmpStrAsync } from 'cmpstr';
+import { CmpStrResult, CmpStrAsync } from 'cmpstr';
 import { resolveInput } from '../utils/ResolveInput.js';
 import { parseOutput } from '../utils/ParseOutput.js';
 
@@ -14,6 +14,8 @@ export async function compare ( a: string, b: string, opt: Record<string, any> =
 
     const cmp = CmpStrAsync.create( { raw: !! verbose, flags, metric } );
 
-    parseOutput( async ? await cmp.compareAsync( a, b ) : cmp.compare( a, b ), cmd );
+    const res = async ? await cmp.testAsync( a, b ) : cmp.test( a, b );
+
+    parseOutput( verbose ? res : ( res as CmpStrResult ).match, cmd );
 
 }
