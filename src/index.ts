@@ -5,6 +5,7 @@
 import { Command } from 'commander';
 import { normalize } from './commands/Normalize.js';
 import { compare } from './commands/Compare.js';
+import { matrix } from './commands/Matrix.js';
 import { analyze } from './commands/Analyze.js';
 import { diff } from './commands/Diff.js';
 
@@ -13,6 +14,14 @@ const cmpCommand = ( cmd: Command ) : Command => {
     return cmd
         .option( '-m, --metric <name>', 'Similarity metric to use' )
         .option( '-f, --flags <string>', 'Normalization flags (e.g., `itw`)' );
+
+};
+
+const listCommand = ( cmd: Command ) : Command => {
+
+    return cmd
+        .option( '-l, --list', '(Source) input will be treated as list' )
+        .option( '-d, --delimiter <string>', 'List input delimiter' );
 
 };
 
@@ -53,6 +62,11 @@ cmpCommand( program
     .action( compare )
 );
 
+cmpCommand( listCommand( program
+    .command( 'matrix <input>' )
+    .description( 'Returns the 2D array representing the similarity matrix.' )
+    .action( matrix )
+) );
 
 program
     .command( 'analyze <input>' )
