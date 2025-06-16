@@ -14,7 +14,13 @@ program
     .description( 'CLI for the lightweight CmpStr package. It enables direct use of CmpStr’s ' +
                   'core features such as string normalization, similarity scoring, and matrix ' +
                   'comparison via the terminal.' )
-    .version( '2.0.0', '-v, --vers' );
+    .version( '1.1.0', '-v, --version', 'Output the version number' );
+
+program
+    .option( '-c, --config <path>', 'Path to config file (YAML or JSON)' )
+    .option( '-o, --output <path>', 'Write result to file instead of stdout' )
+    .option( '-A, --async', 'Asynchronous processing if possible' )
+    .option( '-V, --verbose', 'Output additional information if available' );
 
 program
     .command( 'normalize <input>' )

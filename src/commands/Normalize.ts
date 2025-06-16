@@ -1,9 +1,16 @@
 'use strict';
 
+import { type Command } from 'commander';
 import { Normalizer } from 'cmpstr';
 import { resolveInput } from '../utils/ResolveInput.js';
 
-export async function normalize ( input: string, opt?: Record<string, any> ) : Promise<void> {
+export async function normalize (
+    input: string,
+    opt: Record<string, any> = {},
+    cmd: Command
+) : Promise<void> {
+
+    const { async = false } = cmd.parent!.opts();
 
     const MAP = {
         nfd: 'd', nfc: 'u', nfkc: 'x', collaps: 'w', trim: 't', dedupt: 'r',
@@ -14,6 +21,12 @@ export async function normalize ( input: string, opt?: Record<string, any> ) : P
         ( f ) => MAP[ f as keyof typeof MAP ] ?? ''
     ).join( '' );
 
-    console.log( Normalizer.normalize( await resolveInput( input ), flags ) );
+    const text = await resolveInput( input );
+
+    const res = async
+        ? await Normalizer.normalizeAsync( text, flags )
+        : Normalizer.normalize( text, flags );
+
+    console.log( res );
 
 }
