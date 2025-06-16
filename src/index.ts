@@ -4,8 +4,17 @@
 
 import { Command } from 'commander';
 import { normalize } from './commands/Normalize.js';
+import { compare } from './commands/Compare.js';
 import { analyze } from './commands/Analyze.js';
 import { diff } from './commands/Diff.js';
+
+const cmpCommand = ( cmd: Command ) : Command => {
+
+    return cmd
+        .option( '-m, --metric <name>', 'Similarity metric to use' )
+        .option( '-f, --flags <string>', 'Normalization flags (e.g., `itw`)' );
+
+};
 
 const program = new Command ();
 
@@ -37,6 +46,13 @@ program
     .option( '-n, --nonum', 'Remove non-number characters' )
     .option( '-i, --insensitive', 'Case insensitive (convert to lowercase)' )
     .action( normalize );
+
+cmpCommand( program
+    .command( 'compare <source> <target>' )
+    .description( 'Compares two strings and returns their similarity score.' )
+    .action( compare )
+);
+
 
 program
     .command( 'analyze <input>' )

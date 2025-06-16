@@ -5,9 +5,7 @@ import { TextAnalyzer } from 'cmpstr';
 import { resolveInput } from '../utils/ResolveInput.js';
 import { parseOutput } from '../utils/ParseOutput.js';
 
-export async function analyze ( input: string, opt: Record<string, any> = {}, cmd: Command ) : Promise<void> {
-
-    void opt;
+export async function analyze ( input: string, _: any, cmd: Command ) : Promise<void> {
 
     const res = new TextAnalyzer ( await resolveInput( input ) );
 
