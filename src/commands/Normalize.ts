@@ -3,12 +3,9 @@
 import { type Command } from 'commander';
 import { Normalizer } from 'cmpstr';
 import { resolveInput } from '../utils/ResolveInput.js';
+import { output } from '../utils/Output.js';
 
-export async function normalize (
-    input: string,
-    opt: Record<string, any> = {},
-    cmd: Command
-) : Promise<void> {
+export async function normalize ( input: string, opt: Record<string, any> = {}, cmd: Command ) : Promise<void> {
 
     const { async = false } = cmd.parent!.opts();
 
@@ -27,6 +24,6 @@ export async function normalize (
         ? await Normalizer.normalizeAsync( text, flags )
         : Normalizer.normalize( text, flags );
 
-    console.log( res );
+    output( res, cmd );
 
 }
