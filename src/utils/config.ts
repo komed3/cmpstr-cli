@@ -11,7 +11,7 @@ const __dirname = path.dirname( fileURLToPath( import.meta.url ) );
 
 export async function loadCfg ( cfgPath?: string ) : Promise<Partial<Config>> {
 
-    const defaultConfigPath = path.resolve( __dirname, '../../default.yaml' );
+    const defaultConfigPath = path.resolve( __dirname, '../../default.yml' );
     const filePath = path.resolve( cfgPath || defaultConfigPath );
 
     try {
@@ -37,7 +37,10 @@ export async function loadCfg ( cfgPath?: string ) : Promise<Partial<Config>> {
 
 }
 
-export function mergeCfg ( t: Partial<Config> = {}, o: Partial<Config> = {} ) : Partial<Config> {
+export function mergeCfg (
+    t: Partial<Config> = Object.create( null ),
+    o: Partial<Config> = Object.create( null )
+) : Partial<Config> {
 
     return Object.keys( o ).forEach( k => {
 
@@ -54,9 +57,12 @@ export function mergeCfg ( t: Partial<Config> = {}, o: Partial<Config> = {} ) : 
 
 }
 
-export async function resolveCfg ( cfg: Partial<Config> = {}, cfgPath?: string ) : Promise<Partial<Config>> {
+export async function resolveCfg (
+    cfg: Partial<Config> = Object.create( null ),
+    cfgPath?: string
+) : Promise<Partial<Config>> {
 
-    return mergeCfg( await loadCfg( cfgPath ), cfg );
+    return mergeCfg( ( await loadCfg( cfgPath ) ) ?? Object.create( null ), cfg );
 
 }
 

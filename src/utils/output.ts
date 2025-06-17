@@ -8,24 +8,23 @@ import stripAnsi from 'strip-ansi';
 
 export async function output ( cfg: Partial<Config>, cmd: Command, out: any ) : Promise<void> {
 
-    if ( cfg.verbose ) {
+    const { verbose = false, output = undefined } = cfg ?? {};
+
+    if ( verbose ) {
 
         out =
-            chalk.yellow( '[INPUT]' ) + '\n' +
-            'cmpstr ' + cmd.parent!.args.join( ' ' ) + '\n\n' +
-            chalk.yellow( '[RESULT]' ) + '\n' +
-            JSON.stringify( out, null, 2 ) + '\n\n' +
-            chalk.yellow( '[OPTIONS]' ) + '\n' +
-            JSON.stringify( cfg, null, 2 );
+            chalk.yellow( '[INPUT]' ) + '\n' + 'cmpstr ' + cmd.parent!.args.join( ' ' ) + '\n\n' +
+            chalk.yellow( '[OPTIONS]' ) + '\n' + JSON.stringify( cfg, null, 2 ) + '\n\n' +
+            chalk.yellow( '[RESULT]' ) + '\n' + out;
 
     }
 
-    if ( cfg.output ) {
+    if ( output ) {
 
-        try { fs.writeFile( cfg.output, stripAnsi( out ), 'utf-8' ) }
+        try { fs.writeFile( output, stripAnsi( out ), 'utf-8' ) }
         catch ( err: any ) { throw new Error ( `Failed to write output: ${ err.message }` ) }
 
-        console.log( chalk.green( `Result written to <${ cfg.output }>` ) );
+        console.log( chalk.green( `Result written to <${ output }>` ) );
 
     }
 

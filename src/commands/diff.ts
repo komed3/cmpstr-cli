@@ -8,7 +8,7 @@ import { output } from '../utils/output.js';
 
 export async function diff (
     a: string, b: string,
-    opt: Record<string, any> = {},
+    opt: Record<string, any> = Object.create( null ),
     cmd: Command
 ) : Promise<void> {
 
@@ -32,10 +32,8 @@ export async function diff (
     );
 
     output( config, cmd, config.verbose
-        ? diff.getStructuredDiff()
-        : config.output
-            ? diff.getASCIIDiff()
-            : diff.getCLIDiff()
+        ? JSON.stringify( diff.getStructuredDiff(), null, 2 )
+        : config.output ? diff.getASCIIDiff() : diff.getCLIDiff()
     );
 
 }
