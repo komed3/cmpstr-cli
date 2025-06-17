@@ -20,7 +20,6 @@
     "LICENSE"
   ],
   "dependencies": {
-    "chalk": "^5.4.1",
     "cmpstr": "^3.0.1",
     "commander": "^14.0.0",
     "yaml": "^2.8.0"
@@ -33,12 +32,32 @@
     "build": "tsc"
   },
   "keywords": [
-    "cli-tool", "cli-wrapper", "string-similarity", "string-comparison", "phonetic-search",
-    "levenshtein-distance", "damerau-levenshtein", "jaro-winkler", "cosine-similarity",
-    "dice-coefficient", "jaccard-index", "hamming-distance", "longest-common-subsequence",
-    "needleman-wunsch", "smith-waterman", "q-gram", "similarity-matrix", "batch-operations",
-    "normalization", "asynchronous", "text-processing", "fuzzy-matching", "string-matching",
-    "text-similarity", "diff", "diffing"
+    "cli-tool",
+    "cli-wrapper",
+    "string-similarity",
+    "string-comparison",
+    "phonetic-search",
+    "levenshtein-distance",
+    "damerau-levenshtein",
+    "jaro-winkler",
+    "cosine-similarity",
+    "dice-coefficient",
+    "jaccard-index",
+    "hamming-distance",
+    "longest-common-subsequence",
+    "needleman-wunsch",
+    "smith-waterman",
+    "q-gram",
+    "similarity-matrix",
+    "batch-operations",
+    "normalization",
+    "asynchronous",
+    "text-processing",
+    "fuzzy-matching",
+    "string-matching",
+    "text-similarity",
+    "diff",
+    "diffing"
   ],
   "repository": {
     "type": "git",
