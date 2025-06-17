@@ -20,8 +20,10 @@
     "LICENSE"
   ],
   "dependencies": {
+    "chalk": "^5.4.1",
     "cmpstr": "^3.0.1",
     "commander": "^14.0.0",
+    "strip-ansi": "^7.1.0",
     "yaml": "^2.8.0"
   },
   "devDependencies": {
