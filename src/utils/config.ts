@@ -1,6 +1,7 @@
 'use strict';
 
 import type { Config } from './types.js';
+import { type Command } from 'commander';
 import * as fs from 'node:fs/promises';
 import { fileURLToPath } from 'url';
 import path from 'path';
@@ -8,7 +9,7 @@ import yaml from 'yaml';
 
 const __dirname = path.dirname( fileURLToPath( import.meta.url ) );
 
-export async function load ( cfgPath?: string ) : Promise<Partial<Config>> {
+export async function loadCfg ( cfgPath?: string ) : Promise<Partial<Config>> {
 
     const defaultConfigPath = path.resolve( __dirname, '../../default.yaml' );
     const filePath = path.resolve( cfgPath || defaultConfigPath );
@@ -36,7 +37,7 @@ export async function load ( cfgPath?: string ) : Promise<Partial<Config>> {
 
 }
 
-export function merge ( t: Partial<Config> = {}, o: Partial<Config> = {} ) : Partial<Config> {
+export function mergeCfg ( t: Partial<Config> = {}, o: Partial<Config> = {} ) : Partial<Config> {
 
     return Object.keys( o ).forEach( k => {
 
@@ -45,7 +46,7 @@ export function merge ( t: Partial<Config> = {}, o: Partial<Config> = {} ) : Par
         if ( k === '__proto__' || k === 'constructor' ) return ;
 
         ( t as any )[ k ] = typeof val === 'object' && ! Array.isArray( val )
-            ? merge(typeof ( t as any )[ k ] === 'object' && ! Array.isArray( ( t as any )[ k ] )
+            ? mergeCfg(typeof ( t as any )[ k ] === 'object' && ! Array.isArray( ( t as any )[ k ] )
                 ? ( t as any )[ k ] : Object.create( null ), val )
             : val;
 
@@ -53,8 +54,14 @@ export function merge ( t: Partial<Config> = {}, o: Partial<Config> = {} ) : Par
 
 }
 
-export async function resolve ( cfg: Partial<Config> = {}, cfgPath?: string ) : Promise<Partial<Config>> {
+export async function resolveCfg ( cfg: Partial<Config> = {}, cfgPath?: string ) : Promise<Partial<Config>> {
 
-    return merge( await load( cfgPath ), cfg );
+    return mergeCfg( await loadCfg( cfgPath ), cfg );
+
+}
+
+export async function cfg ( cmd: Command, opt?: Record<string, any> ) : Promise<Partial<Config>> {
+
+    return await resolveCfg( opt, cmd.parent!.opts().config );
 
 }
