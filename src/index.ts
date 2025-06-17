@@ -3,6 +3,7 @@
 'use strict';
 
 import { Command } from 'commander';
+import { analyze } from './commands/analyze.js';
 import { diff } from './commands/diff.js';
 
 const program = new Command ();
@@ -19,6 +20,11 @@ program
     .option( '-o, --output <path>', 'Write result to file instead of stdout' )
     .option( '-A, --async', 'Asynchronous processing if possible' )
     .option( '-V, --verbose', 'Output additional information if available' );
+
+program
+    .command( 'analyze <text>' )
+    .description( 'Runs some analyses on the given text and outputs them.' )
+    .action( analyze )
 
 program
     .command( 'diff <old> <new>' )
