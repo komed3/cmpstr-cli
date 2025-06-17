@@ -4,6 +4,7 @@ import { type Command } from 'commander';
 import { DiffChecker } from 'cmpstr';
 import { cfg } from '../utils/config.js';
 import { resolveInput } from '../utils/input.js';
+import { output } from '../utils/output.js';
 
 export async function diff (
     a: string, b: string,
@@ -30,6 +31,9 @@ export async function diff (
         }
     );
 
-    console.log( diff.getCLIDiff() );
+    output( config, cmd, config.verbose
+        ? diff.getStructuredDiff()
+        : config.output ? diff.getASCIIDiff() : diff.getCLIDiff()
+    );
 
 }

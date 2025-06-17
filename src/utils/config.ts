@@ -62,6 +62,8 @@ export async function resolveCfg ( cfg: Partial<Config> = {}, cfgPath?: string )
 
 export async function cfg ( cmd: Command, opt?: Record<string, any> ) : Promise<Partial<Config>> {
 
-    return await resolveCfg( opt, cmd.parent!.opts().config );
+    const { config, ...opts } = cmd.parent!.opts() ?? {};
+
+    return await resolveCfg( mergeCfg( opts, opt ), config );
 
 }

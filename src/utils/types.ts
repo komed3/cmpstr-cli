@@ -1,7 +1,10 @@
 'use strict';
 
 export interface Config {
-    metric: string;
+    output?: string;
+    async?: boolean;
+    verbose?: boolean;
+    metric?: string;
     flags?: string;
     diff?: {
         mode?: 'line' | 'word';
