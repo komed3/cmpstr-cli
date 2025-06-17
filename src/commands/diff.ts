@@ -33,7 +33,9 @@ export async function diff (
 
     output( config, cmd, config.verbose
         ? diff.getStructuredDiff()
-        : config.output ? diff.getASCIIDiff() : diff.getCLIDiff()
+        : config.output
+            ? diff.getASCIIDiff()
+            : diff.getCLIDiff()
     );
 
 }

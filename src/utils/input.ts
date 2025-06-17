@@ -17,3 +17,19 @@ export async function resolveInput ( input: string ) : Promise<string> {
     }
 
 }
+
+export async function resolveListInput ( input: string, delimiter: string = ' ' ) : Promise<string[]> {
+
+    try {
+
+        const text = await resolveInput( input );
+
+        return text.split( /\n/.exec( text ) ? /\r?\n/ : delimiter ).map( s => s.trim() ).filter( Boolean );
+
+    } catch {
+
+        return [];
+
+    }
+
+}
