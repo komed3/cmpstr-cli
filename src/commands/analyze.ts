@@ -2,34 +2,33 @@
 
 import { type Command } from 'commander';
 import { TextAnalyzer } from 'cmpstr';
+import chalk from 'chalk';
 import { cfg } from '../utils/config.js';
 import { resolveInput } from '../utils/input.js';
 import { output } from '../utils/output.js';
 
-export async function analyze (
-    text: string,
-    opt: Record<string, any> = Object.create( null ),
-    cmd: Command
-) : Promise<void> {
+export async function analyze ( text: string, _: any, cmd: Command ) : Promise<void> {
 
-    const config = await cfg( cmd );
+    const config = await cfg( cmd ), out: string[] = [];
 
     const analyze = new TextAnalyzer ( await resolveInput( text ) );
 
-    const out: string[] = [];
-
-    const heading = ( label: string ) : number => out.push( `\n[${ label.toUpperCase() }]` );
-
-    const str = ( label: string, val: string ) : number => out.push(
-        `> ${label}: `.padEnd( 40, ' ' ) + ( analyze as any )[ val ]()
+    const heading = ( label: string ) : number => out.push(
+        `\n${ chalk.blue( `[${ label.toUpperCase() }]` ) }`
     );
 
-    const num = ( label: string, val: string, decimals: number = 4 ) : number => out.push(
-        `> ${label}: `.padEnd( 40, ' ' ) + ( ( analyze as any )[ val ]() ).toFixed( decimals )
+    const label = ( str: string ) : string => chalk.cyan( `> ${str}:` ).padEnd( 40, ' ' );
+
+    const str = ( str: string, val: string ) : number => out.push(
+        label( str ) + ( analyze as any )[ val ]()
     );
 
-    const obj = ( label: string, val: string ) : number => out.push(
-        `> ${label}: `.padEnd( 40, ' ' ) + JSON.stringify( ( analyze as any )[ val ]() )
+    const num = ( str: string, val: string, decimals: number = 4 ) : number => out.push(
+        label( str ) + ( ( analyze as any )[ val ]() ).toFixed( decimals )
+    );
+
+    const obj = ( str: string, val: string ) : number => out.push(
+        label( str ) + JSON.stringify( ( analyze as any )[ val ]() )
     );
 
     heading( 'Overview' );
