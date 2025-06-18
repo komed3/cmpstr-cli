@@ -6,6 +6,10 @@ export interface Config {
     verbose?: boolean;
     metric?: string;
     flags?: string;
+    phonetic?: {
+        algo?: string;
+        map?: string;
+    };
     diff?: {
         mode?: 'line' | 'word';
         insensitive?: boolean;

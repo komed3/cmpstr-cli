@@ -7,11 +7,11 @@ import { cfg } from '../utils/config.js';
 import { resolveInput } from '../utils/input.js';
 import { output } from '../utils/output.js';
 
-export async function analyze ( text: string, _: any, cmd: Command ) : Promise<void> {
+export async function analyze ( input: string, _: any, cmd: Command ) : Promise<void> {
 
     const config = await cfg( cmd ), out: string[] = [];
 
-    const analyze = new TextAnalyzer ( await resolveInput( text ) );
+    const analyze = new TextAnalyzer ( await resolveInput( input ) );
 
     const heading = ( label: string ) : number => out.push(
         `\n${ chalk.blue( `[${ label.toUpperCase() }]` ) }`

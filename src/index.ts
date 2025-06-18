@@ -5,6 +5,7 @@
 import { Command } from 'commander';
 import { list } from './commands/list.js';
 import { normalize } from './commands/normalize.js';
+import { index } from './commands/index.js';
 import { analyze } from './commands/analyze.js';
 import { diff } from './commands/diff.js';
 
@@ -33,13 +34,21 @@ program
     .command( 'normalize' )
     .description( 'Normalizes the input string to allow case insensive, collapse whitespaces and more.' )
     .argument( 'input', 'Input text to normalize as plain string or path to file' )
-    .option( '--flags <string>', 'Normalization flags as string (e.g., `itw`)' )
+    .option( '-f, --flags <string>', 'Normalization flags as string (e.g., `itw`)' )
     .action( normalize );
 
 program
-    .command( 'analyze <text>' )
+    .command( 'index' )
+    .description( 'Computes the phonetic representation of the given input string.' )
+    .argument( 'input', 'Input text to index as plain string or path to file' )
+    .option( '-a, --algo <name>', 'The phonetic algorithm to use' )
+    .option( '-m, --map <name>', 'The phonetic map to use (e.g., `en`, `de`)' )
+    .action( index );
+
+program
+    .command( 'analyze' )
     .description( 'Runs some analyses on the given text and outputs them.' )
-    .argument( 'text', 'Input text to analyze as plain string or path to file' )
+    .argument( 'input', 'Input text to analyze as plain string or path to file' )
     .action( analyze )
 
 program
