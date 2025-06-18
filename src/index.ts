@@ -6,6 +6,7 @@ import { Command } from 'commander';
 import { list } from './commands/list.js';
 import { normalize } from './commands/normalize.js';
 import { index } from './commands/index.js';
+import { search } from './commands/search.js';
 import { analyze } from './commands/analyze.js';
 import { diff } from './commands/diff.js';
 
@@ -44,6 +45,15 @@ program
     .option( '-a, --algo <name>', 'The phonetic algorithm to use' )
     .option( '-m, --map <name>', 'The phonetic map to use (e.g., `en`, `de`)' )
     .action( index );
+
+program
+    .command( 'search' )
+    .description( 'Performs a filtered and normalized substring search across the haystack.' )
+    .argument( 'needle', 'The string to search for' )
+    .argument( 'haystack', 'The array of strings to search in' )
+    .option( '-f, --flags <string>', 'Normalization flags as string (e.g., `itw`)' )
+    .option( '-d, --delimiter <string>', 'List input delimiter (default `,`)' )
+    .action( search );
 
 program
     .command( 'analyze' )
