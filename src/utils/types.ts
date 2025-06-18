@@ -4,6 +4,7 @@ export interface Config {
     output?: string;
     async?: boolean;
     verbose?: boolean;
+    delimiter?: string;
     metric?: string;
     flags?: string;
     phonetic?: {

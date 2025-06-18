@@ -18,7 +18,7 @@ export async function resolveInput ( input: string ) : Promise<string> {
 
 }
 
-export async function resolveListInput ( input: string, delimiter: string = ' ' ) : Promise<string[]> {
+export async function resolveListInput ( input: string, delimiter: string = ',' ) : Promise<string[]> {
 
     try {
 

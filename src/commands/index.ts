@@ -21,7 +21,8 @@ export async function index (
     const cmp = CmpStrAsync.create();
 
     output( config, cmd, config.async
-        ? cmp.phoneticIndexAsync( text, algo, opts )
-        : cmp.phoneticIndex( text, algo, opts ) );
+        ? await cmp.phoneticIndexAsync( text, algo, opts )
+        : cmp.phoneticIndex( text, algo, opts )
+    );
 
 }

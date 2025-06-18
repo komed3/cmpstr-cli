@@ -19,7 +19,8 @@ export async function normalize (
     const text = await resolveInput( input );
 
     output( config, cmd, async
-        ? Normalizer.normalizeAsync( text, flags )
-        : Normalizer.normalize( text, flags ) );
+        ? await Normalizer.normalizeAsync( text, flags )
+        : Normalizer.normalize( text, flags )
+    );
 
 }
