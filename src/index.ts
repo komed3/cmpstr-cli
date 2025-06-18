@@ -3,6 +3,7 @@
 'use strict';
 
 import { Command } from 'commander';
+import { normalize } from './commands/normalize.js';
 import { analyze } from './commands/analyze.js';
 import { diff } from './commands/diff.js';
 
@@ -22,13 +23,23 @@ program
     .option( '-V, --verbose', 'Output additional information if available' );
 
 program
+    .command( 'normalize' )
+    .description( 'Normalizes the input string to allow case insensive, collapse whitespaces and more.' )
+    .argument( 'input', 'Input text to normalize as plain string or path to file' )
+    .option( '--flags <string>', 'Normalization flags as string (e.g., `itw`)' )
+    .action( normalize );
+
+program
     .command( 'analyze <text>' )
     .description( 'Runs some analyses on the given text and outputs them.' )
+    .argument( 'text', 'Input text to analyze as plain string or path to file' )
     .action( analyze )
 
 program
-    .command( 'diff <old> <new>' )
+    .command( 'diff' )
     .description( 'Finds and marks the difference between two texts.' )
+    .argument( 'original', 'Original text as plain string or path to file' )
+    .argument( 'modified', 'Modified text as plain string or path to file' )
     .option( '-m, --mode <string>', 'Diff granularity `line` or `word` (default `word`)' )
     .option( '-i, --insensitive', 'Ignore case (default `false`)' )
     .option( '-l, --lines <number>', 'Number of context lines to include (default `1`)' )
