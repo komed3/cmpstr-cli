@@ -5,10 +5,11 @@
 import { Command } from 'commander';
 import { list } from './commands/list.js';
 import { normalize } from './commands/normalize.js';
-import { index } from './commands/index.js';
-import { search } from './commands/search.js';
 import { analyze } from './commands/analyze.js';
 import { diff } from './commands/diff.js';
+import { matrix } from './commands/matrix.js';
+import { index } from './commands/index.js';
+import { search } from './commands/search.js';
 
 const program = new Command ();
 
@@ -26,6 +27,9 @@ program
     .option( '-V, --verbose', 'Output additional information if available' );
 
 program
+    .commandsGroup( 'Utilities:' );
+
+program
     .command( 'list' )
     .description( 'List the available metrics and phonetics.' )
     .argument( 'key', 'What should be listed? Use `metric` or `phonetic`.' )
@@ -35,8 +39,41 @@ program
     .command( 'normalize' )
     .description( 'Normalizes the input string to allow case insensive, collapse whitespaces and more.' )
     .argument( 'input', 'Input text to normalize as plain string or path to file' )
-    .option( '-f, --flags <string>', 'Normalization flags as string (e.g., `itw`)' )
+    .option( '-f, --flags <string>', 'Normalization flags (e.g., `itw`)' )
     .action( normalize );
+
+program
+    .command( 'analyze' )
+    .description( 'Runs some analyses on the given text and outputs them.' )
+    .argument( 'input', 'Input text to analyze as plain string or path to file' )
+    .action( analyze );
+
+program
+    .command( 'diff' )
+    .description( 'Finds and marks the difference between two texts.' )
+    .argument( 'original', 'Original text as plain string or path to file' )
+    .argument( 'modified', 'Modified text as plain string or path to file' )
+    .option( '-m, --mode <string>', 'Diff granularity `line` or `word` (default `word`)' )
+    .option( '-i, --insensitive', 'Ignore case (default `false`)' )
+    .option( '-l, --lines <number>', 'Number of context lines to include (default `1`)' )
+    .option( '-s, --single', 'Output single lines instead of grouping adjacent changes (default `false`)' )
+    .option( '-a, --all', 'Show all lines (default `false`)' )
+    .action( diff );
+
+program
+    .commandsGroup( 'Similarity:' );
+
+program
+    .commandsGroup( 'Special:' );
+
+program
+    .command( 'matrix' )
+    .description( 'Computes a similarity matrix for all combinations within the input list.' )
+    .argument( 'input', 'List of strings to build the matrix for' )
+    .option( '-m, --metric <name>', 'Similarity metric to use (default `levenshtein`)' )
+    .option( '-f, --flags <string>', 'Normalization flags (e.g., `itw`)' )
+    .option( '-d, --delimiter <string>', 'List delimiter (default `,`)' )
+    .action( matrix );
 
 program
     .command( 'index' )
@@ -50,27 +87,9 @@ program
     .command( 'search' )
     .description( 'Performs a filtered and normalized substring search across the haystack.' )
     .argument( 'needle', 'The string to search for' )
-    .argument( 'haystack', 'The array of strings to search in' )
-    .option( '-f, --flags <string>', 'Normalization flags as string (e.g., `itw`)' )
-    .option( '-d, --delimiter <string>', 'List input delimiter (default `,`)' )
+    .argument( 'haystack', 'The list of strings to search in' )
+    .option( '-f, --flags <string>', 'Normalization flags (e.g., `itw`)' )
+    .option( '-d, --delimiter <string>', 'List delimiter (default `,`)' )
     .action( search );
-
-program
-    .command( 'analyze' )
-    .description( 'Runs some analyses on the given text and outputs them.' )
-    .argument( 'input', 'Input text to analyze as plain string or path to file' )
-    .action( analyze )
-
-program
-    .command( 'diff' )
-    .description( 'Finds and marks the difference between two texts.' )
-    .argument( 'original', 'Original text as plain string or path to file' )
-    .argument( 'modified', 'Modified text as plain string or path to file' )
-    .option( '-m, --mode <string>', 'Diff granularity `line` or `word` (default `word`)' )
-    .option( '-i, --insensitive', 'Ignore case (default `false`)' )
-    .option( '-l, --lines <number>', 'Number of context lines to include (default `1`)' )
-    .option( '-s, --single', 'Output single lines instead of grouping adjacent changes (default `false`)' )
-    .option( '-a, --all', 'Show all lines (default `false`)' )
-    .action( diff );
 
 program.parseAsync( process.argv );
