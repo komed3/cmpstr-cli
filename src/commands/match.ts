@@ -7,7 +7,7 @@ import { resolveInput, resolveListInput } from '../utils/input.js';
 import { output } from '../utils/output.js';
 
 export async function match (
-    a: string | string[], b: string,
+    a: string, b: string,
     opt: Record<string, any> = Object.create( null ),
     cmd: Command
 ) : Promise<void> {
@@ -20,8 +20,8 @@ export async function match (
         threshold = 0, sort = 'desc', n = Infinity
     } = config;
 
-    a = list ? await resolveListInput( a as string, delimiter ) : await resolveInput( a as string );
-    b = await resolveInput( b );
+    const A = list ? await resolveListInput( a, delimiter ) : await resolveInput( a );
+    const B = await resolveInput( b );
 
     const cmp = CmpStrAsync
         .create()
@@ -30,8 +30,8 @@ export async function match (
         .setFlags( flags );
 
     let res = async
-        ? await cmp.matchAsync( a, b, threshold )
-        : cmp.match( a, b, threshold );
+        ? await cmp.matchAsync( A, B, threshold )
+        : cmp.match( A, B, threshold );
 
     res = res.sort( ( a: any, b: any ) => verbose
         ? sort === 'asc' ? a.res - b.res : b.res - a.res

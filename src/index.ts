@@ -9,6 +9,7 @@ import { analyze } from './commands/analyze.js';
 import { diff } from './commands/diff.js';
 import { compare } from './commands/compare.js';
 import { match } from './commands/match.js';
+import { pairs } from './commands/pairs.js';
 import { matrix } from './commands/matrix.js';
 import { index } from './commands/index.js';
 import { search } from './commands/search.js';
@@ -87,6 +88,16 @@ program
     .option( '-s, --sort <string>', 'Sorted by similarity (`asc` or default `desc`)' )
     .option( '-n <number>', 'Number of elements to return' )
     .action( match );
+
+program
+    .command( 'pairs' )
+    .description( 'Compares elements at the same index. Both inputs must be lists of the same length.' )
+    .argument( 'source', 'The first list of strings' )
+    .argument( 'target', 'The second list of strings' )
+    .option( '-m, --metric <name>', 'Similarity metric to use' )
+    .option( '-f, --flags <string>', 'Normalization flags (e.g., `itw`)' )
+    .option( '-d, --delimiter <string>', 'List delimiter (default `,`)' )
+    .action( pairs );
 
 program
     .commandsGroup( 'Special:' );
