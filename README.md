@@ -22,13 +22,13 @@ npx cmpstr-cli
 
 These options are available for all commands:
 
-| Option                        | Description                                      |
-| ----------------------------- | ------------------------------------------------ |
-| `-c, --config <path>`         | Path to a config file (YAML or JSON)             |
-| `-o, --output <path>`         | Write result to file instead of stdout           |
-| `-A, --async`                 | Enable asynchronous processing if possible       |
-| `-V, --verbose`               | Output additional information if available       |
-| `-v, --version`               | Output the version number                        |
+| Option                  | Description                                  |
+| ----------------------- | -------------------------------------------- |
+| `-c, --config <path>`   | Path to a config file (YAML or JSON)         |
+| `-o, --output <path>`   | Write result to file instead of stdout       |
+| `-A, --async`           | Enable asynchronous processing if possible   |
+| `-V, --verbose`         | Output additional information if available   |
+| `-v, --version`         | Output the version number                    |
 
 ## Commands
 
@@ -228,6 +228,51 @@ Performs a filtered and normalized substring search across the haystack (a list 
 ```sh
 cmpstr search "Müller" names.txt -f itw
 ```
+
+## Configuration File
+
+You can provide a YAML or JSON configuration file to set default options for all commands. This is especially useful if you frequently use the same options or want to share settings across projects.
+
+### Usage
+
+Use the `-c <path>` or `--config <path>` global option to specify your config file:
+
+```sh
+cmpstr compare "hello" "hallo" -c ./myconfig.yml
+```
+
+If no config file is specified, `cmpstr-cli` will use the built-in [`default.yml`](./default.yml) shipped with the package.
+
+### Example: `myconfig.yml`
+
+```yaml
+async: true
+verbose: true
+metric: jaro
+flags: "itw"
+output: results.txt
+
+phonetic:
+  algo: soundex
+  map: de
+
+diff:
+  mode: line
+  insensitive: true
+  lines: 2
+```
+
+### How it works
+
+- **All options** in the config file are merged with CLI options.  
+  CLI options always take precedence over config file values.
+- **Nested options** (like `phonetic` or `diff`) are supported.
+- **Supported formats:** YAML (`.yml`, `.yaml`) and JSON (`.json`).
+
+### Tips
+
+- Use a config file to avoid repeating common options in every command.
+- You can maintain multiple config files for different workflows or languages.
 
 ## Usage Notes
 
