@@ -1,5 +1,11 @@
 # CmpStr CLI
 
+[![GitHub License](https://img.shields.io/github/license/komed3/cmpstr-cli?style=for-the-badge&logo=unlicense&logoColor=fff)](LICENSE)
+[![Static Badge](https://img.shields.io/badge/Typescript-support?style=for-the-badge&logo=typescript&logoColor=fff&color=blue)](https://www.typescriptlang.org)
+[![GitHub package.json version](https://img.shields.io/github/package-json/v/komed3/cmpstr-cli?style=for-the-badge&logo=npm&logoColor=fff)](https://npmjs.com/package/cmpstr-cli)
+[![NPM Downloads](https://img.shields.io/npm/dy/cmpstr-cli?style=for-the-badge&logo=transmission&logoColor=fff)](https://npmpackage.info/package/cmpstr-cli?t=downloads)
+[![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/komed3/cmpstr-cli/build.yml?style=for-the-badge&logo=educative&logoColor=fff)](https://github.com/komed3/cmpstr-cli/actions/workflows/build.yml)
+
 The `cmpstr` CLI provides a modular and scriptable command line interface to the [CmpStr](https://www.npmjs.com/package/cmpstr) library, supporting string normalization, similarity scoring, phonetic indexing, matrix comparison, and more. Many commands accept plain strings or file paths as input.
 
 For more details on normalization flags, similarity metrics or phonetic algorithms, refer to the [CmpStr Wiki](https://github.com/komed3/cmpstr/wiki).
