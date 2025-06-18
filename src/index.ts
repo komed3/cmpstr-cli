@@ -3,6 +3,7 @@
 'use strict';
 
 import { Command } from 'commander';
+import { list } from './commands/list.js';
 import { normalize } from './commands/normalize.js';
 import { analyze } from './commands/analyze.js';
 import { diff } from './commands/diff.js';
@@ -21,6 +22,12 @@ program
     .option( '-o, --output <path>', 'Write result to file instead of stdout' )
     .option( '-A, --async', 'Asynchronous processing if possible' )
     .option( '-V, --verbose', 'Output additional information if available' );
+
+program
+    .command( 'list' )
+    .description( 'List the available metrics and phonetics.' )
+    .argument( 'key', 'What should be listed? Use `metric` or `phonetic`.' )
+    .action( list );
 
 program
     .command( 'normalize' )
