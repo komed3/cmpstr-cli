@@ -7,6 +7,8 @@ import { list } from './commands/list.js';
 import { normalize } from './commands/normalize.js';
 import { analyze } from './commands/analyze.js';
 import { diff } from './commands/diff.js';
+import { compare } from './commands/compare.js';
+import { match } from './commands/match.js';
 import { matrix } from './commands/matrix.js';
 import { index } from './commands/index.js';
 import { search } from './commands/search.js';
@@ -62,6 +64,29 @@ program
 
 program
     .commandsGroup( 'Similarity:' );
+
+program
+    .command( 'compare' )
+    .description( 'Compares two input strings based on their similarity.' )
+    .argument( 'source', 'The base input of the comparison' )
+    .argument( 'target', 'String to compare the input with' )
+    .option( '-m, --metric <name>', 'Similarity metric to use' )
+    .option( '-f, --flags <string>', 'Normalization flags (e.g., `itw`)' )
+    .action( compare );
+
+program
+    .command( 'match' )
+    .description( 'Compares the second input against the first string or list of strings based on their similarity.' )
+    .argument( 'source', 'The base input of the comparison' )
+    .argument( 'target', 'String to compare the input with' )
+    .option( '-m, --metric <name>', 'Similarity metric to use' )
+    .option( '-f, --flags <string>', 'Normalization flags (e.g., `itw`)' )
+    .option( '-l, --list', 'Treat the first input as a list' )
+    .option( '-d, --delimiter <string>', 'List delimiter (default `,`)' )
+    .option( '-t, --threshold <number>', 'Minimum required similarity (default `0`)' )
+    .option( '-s, --sort <string>', 'Sorted by similarity (`asc` or default `desc`)' )
+    .option( '-n <number>', 'Number of elements to return' )
+    .action( match );
 
 program
     .commandsGroup( 'Special:' );
