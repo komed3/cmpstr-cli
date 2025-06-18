@@ -1,0 +1,23 @@
+# Default options for CmpStr CLI
+
+async: false
+verbose: false
+list: false
+delimiter: ","
+
+metric: levenshtein
+flags: ""
+threshold: 0
+sort: desc
+n: 1e100
+
+phonetic:
+  algo: soundex
+  map: en
+
+diff:
+  mode: word
+  insensitive: false
+  lines: 1
+  single: false
+  all: false
