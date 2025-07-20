@@ -18,7 +18,7 @@
  * 
  * @author Paul Köhler (komed3)
  * @license MIT
- * @version 1.1.0
+ * @version 1.1.1
  */
 
 'use strict';
@@ -46,7 +46,7 @@ program
     .description( 'CLI for the lightweight CmpStr package.\nIt enables direct use of CmpStr’s ' +
                   'core features such as string normalization,\nsimilarity scoring, and matrix ' +
                   'comparison via the terminal.\n\nAll inputs can also refer to readable files.' )
-    .version( '1.1.0', '-v, --version', 'Output the version number' );
+    .version( '1.1.1', '-v, --version', 'Output the version number' );
 
 // Global options available for all commands
 program
