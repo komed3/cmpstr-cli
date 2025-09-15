@@ -22,14 +22,14 @@
     "LICENSE"
   ],
   "dependencies": {
-    "chalk": "^5.6.0",
-    "cmpstr": "^3.0.3",
-    "commander": "^14.0.0",
-    "strip-ansi": "^7.1.0",
+    "chalk": "^5.6.2",
+    "cmpstr": "^3.0.4",
+    "commander": "^14.0.1",
+    "strip-ansi": "^7.1.2",
     "yaml": "^2.8.1"
   },
   "devDependencies": {
-    "@types/node": "^24.3.0",
+    "@types/node": "^24.4.0",
     "typescript": "^5.9.2"
   },
   "scripts": {
