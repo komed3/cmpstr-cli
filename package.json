@@ -7,7 +7,7 @@
     "url": "https://komed3.de"
   },
   "homepage": "https://github.com/komed3/cmpstr-cli",
-  "version": "1.1.3",
+  "version": "1.1.4",
   "license": "MIT",
   "type": "module",
   "types": "./dist/index.d.ts",
