@@ -11,8 +11,9 @@
 
 'use strict';
 
-import { type Command } from 'commander';
 import { CmpStrAsync } from 'cmpstr';
+import { type Command } from 'commander';
+
 import { cfg } from '../utils/config.js';
 import { resolveInput, resolveListInput } from '../utils/input.js';
 import { output } from '../utils/output.js';
@@ -23,28 +24,23 @@ import { output } from '../utils/output.js';
  * @async
  * @param {string} a - The string to search for (needle).
  * @param {string} b - The list of strings to search in (haystack).
- * @param {Record<string, any>} [opt] - Additional search options.
+ * @param {Record< string, any >} [opt] - Additional search options.
  * @param {Command} cmd - The Commander command instance.
- * @returns {Promise<void>}
+ * @returns {Promise< void >}
  */
 export async function search (
     a: string, b: string,
-    opt: Record<string, any> = Object.create( null ),
+    opt: Record< string, any > = Object.create( null ),
     cmd: Command
-) : Promise<void> {
-
+) : Promise< void > {
     const config = await cfg( cmd, opt );
-
     const { async = false, delimiter = ',', flags = '' } = config;
-
     const needle = await resolveInput( a );
     const haystack = await resolveListInput( b, delimiter );
-
     const cmp = CmpStrAsync.create();
 
-    output( config, cmd, async
+    await output( config, cmd, async
         ? await cmp.searchAsync( needle, haystack, flags )
         : cmp.search( needle, haystack, flags )
     );
-
 }
