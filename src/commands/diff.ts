@@ -12,8 +12,9 @@
 
 'use strict';
 
-import { type Command } from 'commander';
 import { DiffChecker } from 'cmpstr';
+import { type Command } from 'commander';
+
 import { cfg } from '../utils/config.js';
 import { resolveInput } from '../utils/input.js';
 import { output } from '../utils/output.js';
@@ -24,18 +25,16 @@ import { output } from '../utils/output.js';
  * @async
  * @param {string} a - The original text or file path.
  * @param {string} b - The modified text or file path.
- * @param {Record<string, any>} [opt] - Diff options.
+ * @param {Record< string, any >} [opt] - Diff options.
  * @param {Command} cmd - The Commander command instance.
- * @returns {Promise<void>}
+ * @returns {Promise< void >}
  */
 export async function diff (
     a: string, b: string,
-    opt: Record<string, any> = Object.create( null ),
+    opt: Record< string, any > = Object.create( null ),
     cmd: Command
-) : Promise<void> {
-
+) : Promise< void > {
     const config = await cfg( cmd, { diff: opt } );
-
     const {
         mode = 'word', insensitive = false, lines = 1,
         single = false, all = false
@@ -53,9 +52,8 @@ export async function diff (
         }
     );
 
-    output( config, cmd, config.verbose
+    await output( config, cmd, config.verbose
         ? JSON.stringify( diff.getStructuredDiff(), null, 2 )
         : config.output ? diff.getASCIIDiff() : diff.getCLIDiff()
     );
-
 }

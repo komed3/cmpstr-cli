@@ -39,11 +39,8 @@ export async function compare (
 
     a = await resolveInput( a ), b = await resolveInput( b );
 
-    if ( verbose ) output( config, cmd, JSON.stringify(
-        async ? await cmp.testAsync( a, b ) : cmp.test( a, b )
-    ) );
-
-    else output( config, cmd, (
-        async ? await cmp.compareAsync( a, b ) : cmp.compare( a, b )
-    ) );
+    await output( config, cmd, verbose
+        ? JSON.stringify( async ? await cmp.testAsync( a, b ) : cmp.test( a, b ) )
+        : async ? await cmp.compareAsync( a, b ) : cmp.compare( a, b )
+    );
 }

@@ -12,8 +12,9 @@
 
 'use strict';
 
-import { type Command } from 'commander';
 import { CmpStrAsync } from 'cmpstr';
+import { type Command } from 'commander';
+
 import { cfg } from '../utils/config.js';
 import { resolveInput } from '../utils/input.js';
 import { output } from '../utils/output.js';
@@ -23,27 +24,23 @@ import { output } from '../utils/output.js';
  * 
  * @async
  * @param {string} input - The input string or file path.
- * @param {Record<string, any>} [opt] - Phonetic options.
+ * @param {Record< string, any >} [opt] - Phonetic options.
  * @param {Command} cmd - The Commander command instance.
- * @returns {Promise<void>}
+ * @returns {Promise< void >}
  */
 export async function index (
     input: string,
-    opt: Record<string, any> = Object.create( null ),
+    opt: Record< string, any > = Object.create( null ),
     cmd: Command
-) : Promise<void> {
-
+) : Promise< void > {
     const config = await cfg( cmd, { phonetic: opt } );
-
     const { algo, ...opts } = config.phonetic ?? {};
+    const cmp = CmpStrAsync.create();
 
     input = await resolveInput( input );
 
-    const cmp = CmpStrAsync.create();
-
-    output( config, cmd, config.async
+    await output( config, cmd, config.async
         ? await cmp.phoneticIndexAsync( input, algo, opts )
         : cmp.phoneticIndex( input, algo, opts )
     );
-
 }

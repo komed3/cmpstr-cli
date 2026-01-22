@@ -94,5 +94,5 @@ export async function analyze ( input: string, _: any, cmd: Command ) : Promise<
     num( 'LIX score', 'getLIXScore' );
     str( 'Wiener Sachtextformel', 'getWSTFScore' );
 
-    output( config, cmd, out.join( '\n' ).substring( 1 ) );
+    await output( config, cmd, out.join( '\n' ).substring( 1 ) );
 }
