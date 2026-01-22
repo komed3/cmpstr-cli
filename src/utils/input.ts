@@ -11,7 +11,7 @@
 
 'use strict';
 
-import * as fs from 'node:fs/promises';
+import { access, readFile } from 'node:fs/promises';
 
 /**
  * Resolves the input string.
@@ -20,25 +20,15 @@ import * as fs from 'node:fs/promises';
  * 
  * @async
  * @param {string} input - The input string or file path.
- * @returns {Promise<string>} The resolved input content.
+ * @returns {Promise< string >} The resolved input content.
  */
-export async function resolveInput ( input: string ) : Promise<string> {
-
+export async function resolveInput ( input: string ) : Promise< string > {
     try {
-
-        // Check if input is a file path by attempting to access it
-        await fs.access( input );
-
-        // If accessible, read and return file content
-        return ( await fs.readFile( input, 'utf-8' ) ).trim();
-
+        await access( input );
+        return ( await readFile( input, 'utf-8' ) ).trim();
     } catch {
-
-        // If not a file, return the trimmed input string
         return input.trim();
-
     }
-
 }
 
 /**
@@ -49,22 +39,13 @@ export async function resolveInput ( input: string ) : Promise<string> {
  * @async
  * @param {string} input - The input string or file path.
  * @param {string} [delimiter=','] - The delimiter to use for splitting (default: `,`).
- * @returns {Promise<string[]>} The resolved list of strings.
+ * @returns {Promise< string[] >} The resolved list of strings.
  */
-export async function resolveListInput ( input: string, delimiter: string = ',' ) : Promise<string[]> {
-
+export async function resolveListInput ( input: string, delimiter: string = ',' ) : Promise< string[] > {
     try {
-
         const text = await resolveInput( input );
-
-        // If input contains line breaks, split by line; otherwise, use delimiter
         return text.split( /\n/.exec( text ) ? /\r?\n/ : delimiter ).map( s => s.trim() ).filter( Boolean );
-
     } catch {
-
-        // On error, return an empty list
         return [];
-
     }
-
 }
