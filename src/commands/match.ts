@@ -28,7 +28,6 @@ import { output } from '../utils/output.js';
  * @param {string} b - The string to compare against.
  * @param {Record< string, any >} [opt] - Additional match options.
  * @param {Command} cmd - The Commander command instance.
- * @returns {Promise< void >}
  */
 export async function match (
     a: string, b: string,

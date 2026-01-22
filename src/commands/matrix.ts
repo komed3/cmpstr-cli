@@ -25,7 +25,6 @@ import { output } from '../utils/output.js';
  * @param {string} input - The input list as a string or file path.
  * @param {Record< string, any >} [opt] - Additional matrix options.
  * @param {Command} cmd - The Commander command instance.
- * @returns {Promise< void >}
  */
 export async function matrix (
     input: string,

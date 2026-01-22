@@ -25,7 +25,6 @@ import { output } from '../utils/output.js';
  * @param {string} input - The input string or file path to normalize.
  * @param {Record< string, any >} [opt] - Normalization options.
  * @param {Command} cmd - The Commander command instance.
- * @returns {Promise< void >}
  */
 export async function normalize (
     input: string,

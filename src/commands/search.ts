@@ -26,7 +26,6 @@ import { output } from '../utils/output.js';
  * @param {string} b - The list of strings to search in (haystack).
  * @param {Record< string, any >} [opt] - Additional search options.
  * @param {Command} cmd - The Commander command instance.
- * @returns {Promise< void >}
  */
 export async function search (
     a: string, b: string,

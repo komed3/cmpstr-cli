@@ -24,7 +24,6 @@ import { output } from '../utils/output.js';
  * @param {'metric' | 'phonetic'} key - The type of list to display.
  * @param {any} _ - Unused options parameter (Commander compatibility).
  * @param {Command} cmd - The Commander command instance.
- * @returns {Promise< void >}
  */
 export async function list ( key: 'metric' | 'phonetic', _: any, cmd: Command ) : Promise< void > {
     await output( await cfg( cmd ), cmd, CmpStr[ key ].list().join( ', ' ) );

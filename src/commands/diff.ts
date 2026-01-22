@@ -27,7 +27,6 @@ import { output } from '../utils/output.js';
  * @param {string} b - The modified text or file path.
  * @param {Record< string, any >} [opt] - Diff options.
  * @param {Command} cmd - The Commander command instance.
- * @returns {Promise< void >}
  */
 export async function diff (
     a: string, b: string,

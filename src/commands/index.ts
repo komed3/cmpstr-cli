@@ -26,7 +26,6 @@ import { output } from '../utils/output.js';
  * @param {string} input - The input string or file path.
  * @param {Record< string, any >} [opt] - Phonetic options.
  * @param {Command} cmd - The Commander command instance.
- * @returns {Promise< void >}
  */
 export async function index (
     input: string,

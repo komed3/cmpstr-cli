@@ -27,7 +27,6 @@ import { output } from '../utils/output.js';
  * @param {string} input - The input text or file path to analyze.
  * @param {any} _ - Unused options parameter (Commander compatibility).
  * @param {Command} cmd - The Commander command instance.
- * @returns {Promise< void >}
  */
 export async function analyze ( input: string, _: any, cmd: Command ) : Promise< void > {
     const config = await cfg( cmd ), out: string[] = [];
