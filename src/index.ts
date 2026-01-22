@@ -24,15 +24,16 @@
 'use strict';
 
 import { Command } from 'commander';
-import { list } from './commands/list.js';
-import { normalize } from './commands/normalize.js';
+
 import { analyze } from './commands/analyze.js';
-import { diff } from './commands/diff.js';
 import { compare } from './commands/compare.js';
-import { match } from './commands/match.js';
-import { pairs } from './commands/pairs.js';
-import { matrix } from './commands/matrix.js';
+import { diff } from './commands/diff.js';
 import { index } from './commands/index.js';
+import { list } from './commands/list.js';
+import { match } from './commands/match.js';
+import { matrix } from './commands/matrix.js';
+import { normalize } from './commands/normalize.js';
+import { pairs } from './commands/pairs.js';
 import { search } from './commands/search.js';
 
 /**
