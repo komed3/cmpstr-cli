@@ -11,12 +11,14 @@
 
 'use strict';
 
-import type { Config } from './types.js';
-import { type Command } from 'commander';
 import * as fs from 'node:fs/promises';
-import { fileURLToPath } from 'url';
-import path from 'path';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+import { type Command } from 'commander';
 import yaml from 'yaml';
+
+import type { Config } from './types.js';
 
 // Get the directory name of the current module (ESM-compatible)
 const __dirname = path.dirname( fileURLToPath( import.meta.url ) );
@@ -27,35 +29,25 @@ const __dirname = path.dirname( fileURLToPath( import.meta.url ) );
  * 
  * @async
  * @param {string} [cfgPath] - Path to the config file.
- * @returns {Promise<Partial<Config>>} The loaded configuration object.
+ * @returns {Promise< Partial< Config > >} The loaded configuration object.
  * @throws {Error} If loading or parsing fails.
  */
-export async function loadCfg ( cfgPath?: string ) : Promise<Partial<Config>> {
-
+export async function loadCfg ( cfgPath?: string ) : Promise< Partial< Config > > {
     const defaultConfigPath = path.resolve( __dirname, '../../default.yml' );
     const filePath = path.resolve( cfgPath || defaultConfigPath );
 
     try {
-
         const content = await fs.readFile( filePath, 'utf-8' );
         const ext = path.extname( filePath ).toLowerCase();
 
         switch ( ext ) {
-
             case '.yaml': case '.yml': return yaml.parse( content );
-
             case '.json': return JSON.parse( content );
-
             default: throw new Error ( `Unsupported config format: ${ext}` );
-
         }
-
     } catch ( err ) {
-
-        throw new Error ( `Failed to load config from ${filePath}` );
-
+        throw new Error ( `Failed to load config from ${filePath}`, { cause: err } );
     }
-
 }
 
 /**
