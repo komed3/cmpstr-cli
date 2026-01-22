@@ -11,8 +11,9 @@
 
 'use strict';
 
-import { type Command } from 'commander';
 import { Normalizer } from 'cmpstr';
+import { type Command } from 'commander';
+
 import { cfg } from '../utils/config.js';
 import { resolveInput } from '../utils/input.js';
 import { output } from '../utils/output.js';
@@ -22,25 +23,21 @@ import { output } from '../utils/output.js';
  * 
  * @async
  * @param {string} input - The input string or file path to normalize.
- * @param {Record<string, any>} [opt] - Normalization options.
+ * @param {Record< string, any >} [opt] - Normalization options.
  * @param {Command} cmd - The Commander command instance.
- * @returns {Promise<void>}
+ * @returns {Promise< void >}
  */
 export async function normalize (
     input: string,
-    opt: Record<string, any> = Object.create( null ),
+    opt: Record< string, any > = Object.create( null ),
     cmd: Command
-) : Promise<void> {
-
+) : Promise< void > {
     const config = await cfg( cmd, opt );
-
     const { async = false, flags = '' } = config;
-
     const text = await resolveInput( input );
 
-    output( config, cmd, async
+    await output( config, cmd, async
         ? await Normalizer.normalizeAsync( text, flags )
         : Normalizer.normalize( text, flags )
     );
-
 }
