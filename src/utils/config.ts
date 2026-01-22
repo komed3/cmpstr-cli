@@ -11,17 +11,18 @@
 
 'use strict';
 
-import * as fs from 'node:fs/promises';
-import path from 'node:path';
+import { readFile } from 'node:fs/promises';
+import { dirname, extname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
+import { DeepMerge } from 'cmpstr/root';
 import { type Command } from 'commander';
 import yaml from 'yaml';
 
 import type { Config } from './types.js';
 
 // Get the directory name of the current module (ESM-compatible)
-const __dirname = path.dirname( fileURLToPath( import.meta.url ) );
+const __dirname = dirname( fileURLToPath( import.meta.url ) );
 
 /**
  * Loads a configuration file (YAML, YML, or JSON).
@@ -33,12 +34,12 @@ const __dirname = path.dirname( fileURLToPath( import.meta.url ) );
  * @throws {Error} If loading or parsing fails.
  */
 export async function loadCfg ( cfgPath?: string ) : Promise< Partial< Config > > {
-    const defaultConfigPath = path.resolve( __dirname, '../../default.yml' );
-    const filePath = path.resolve( cfgPath || defaultConfigPath );
+    const defaultConfigPath = resolve( __dirname, '../../default.yml' );
+    const filePath = resolve( cfgPath || defaultConfigPath );
 
     try {
-        const content = await fs.readFile( filePath, 'utf-8' );
-        const ext = path.extname( filePath ).toLowerCase();
+        const content = await readFile( filePath, 'utf-8' );
+        const ext = extname( filePath ).toLowerCase();
 
         switch ( ext ) {
             case '.yaml': case '.yml': return yaml.parse( content );
@@ -51,48 +52,18 @@ export async function loadCfg ( cfgPath?: string ) : Promise< Partial< Config > 
 }
 
 /**
- * Deeply merges two configuration objects.
- * 
- * @param {Partial<Config>} t - The target config object.
- * @param {Partial<Config>} o - The source config object to merge in.
- * @returns {Partial<Config>} The merged config object.
- */
-export function mergeCfg (
-    t: Partial<Config> = Object.create( null ),
-    o: Partial<Config> = Object.create( null )
-) : Partial<Config> {
-
-    return Object.keys( o ).forEach( k => {
-
-        const val = ( o as any )[ k ];
-
-        // Prevent prototype pollution
-        if ( k === '__proto__' || k === 'constructor' ) return ;
-
-        ( t as any )[ k ] = typeof val === 'object' && ! Array.isArray( val )
-            ? mergeCfg(typeof ( t as any )[ k ] === 'object' && ! Array.isArray( ( t as any )[ k ] )
-                ? ( t as any )[ k ] : Object.create( null ), val )
-            : val;
-
-    } ), t;
-
-}
-
-/**
  * Loads and merges configuration from file and CLI options.
  * 
  * @async
- * @param {Partial<Config>} [cfg] - The base config object (e.g., from CLI).
+ * @param {Partial< Config >} [cfg] - The base config object (e.g., from CLI).
  * @param {string} [cfgPath] - Path to the config file.
- * @returns {Promise<Partial<Config>>} The resolved configuration object.
+ * @returns {Promise< Partial< Config > >} The resolved configuration object.
  */
 export async function resolveCfg (
-    cfg: Partial<Config> = Object.create( null ),
+    cfg: Partial< Config > = Object.create( null ),
     cfgPath?: string
-) : Promise<Partial<Config>> {
-
-    return mergeCfg( ( await loadCfg( cfgPath ) ) ?? Object.create( null ), cfg );
-
+) : Promise< Partial< Config > > {
+    return DeepMerge.merge( ( await loadCfg( cfgPath ) ) ?? Object.create( null ), cfg );
 }
 
 /**
@@ -101,13 +72,13 @@ export async function resolveCfg (
  * 
  * @async
  * @param {Command} cmd - The Commander command instance.
- * @param {Record<string, any>} [opt] - Additional options to merge.
- * @returns {Promise<Partial<Config>>} The resolved configuration object.
+ * @param {Record< string, any >} [opt] - Additional options to merge.
+ * @returns {Promise< Partial< Config > >} The resolved configuration object.
  */
-export async function cfg ( cmd: Command, opt?: Record<string, any> ) : Promise<Partial<Config>> {
-
+export async function cfg (
+    cmd: Command,
+    opt?: Record< string, any >
+) : Promise< Partial< Config > > {
     const { config, ...opts } = cmd.parent!.opts() ?? {};
-
-    return await resolveCfg( mergeCfg( opts, opt ), config );
-
+    return await resolveCfg( DeepMerge.merge( opts, opt ), config );
 }
