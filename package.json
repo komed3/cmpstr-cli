@@ -1,40 +1,14 @@
 {
   "name": "cmpstr-cli",
   "description": "Simple CLI wrapper for the CmpStr package to normalize and compare strings directly via terminal",
+  "license": "MIT",
+  "version": "1.2.0",
   "author": {
     "name": "komed3 (Paul Köhler)",
     "email": "webmaster@komed3.de",
     "url": "https://komed3.de"
   },
   "homepage": "https://github.com/komed3/cmpstr-cli",
-  "version": "1.2.0",
-  "license": "MIT",
-  "type": "module",
-  "types": "./dist/index.d.ts",
-  "main": "./dist/index.js",
-  "bin": {
-    "cmpstr": "./dist/index.js"
-  },
-  "files": [
-    "dist",
-    "default.yml",
-    "README.md",
-    "LICENSE"
-  ],
-  "dependencies": {
-    "chalk": "^5.6.2",
-    "cmpstr": "^3.2.0",
-    "commander": "^14.0.2",
-    "strip-ansi": "^7.1.2",
-    "yaml": "^2.8.2"
-  },
-  "devDependencies": {
-    "@types/node": "^25.0.10",
-    "typescript": "^5.9.3"
-  },
-  "scripts": {
-    "build": "tsc"
-  },
   "keywords": [
     "cli-tool",
     "cli-wrapper",
@@ -69,5 +43,38 @@
   },
   "bugs": {
     "url": "https://github.com/komed3/cmpstr-cli/issues"
+  },
+  "funding": {
+    "type": "ko-fi",
+    "url": "https://ko-fi.com/komed3"
+  },
+  "files": [
+    "dist",
+    "default.yml",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "type": "module",
+  "types": "./dist/index.d.ts",
+  "main": "./dist/index.js",
+  "bin": {
+    "cmpstr": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc"
+  },
+  "dependencies": {
+    "chalk": "^5.6.2",
+    "cmpstr": "^3.2.0",
+    "commander": "^14.0.2",
+    "strip-ansi": "^7.1.2",
+    "yaml": "^2.8.2"
+  },
+  "devDependencies": {
+    "@types/node": "^25.0.10",
+    "typescript": "^5.9.3"
   }
 }
