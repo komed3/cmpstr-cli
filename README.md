@@ -293,3 +293,7 @@ Use `-V` to include detailed input, options, and result sections in the output.
 
 **Asynchronous Processing:**  
 Use `-A` to enable asynchronous processing for supported commands, which can improve performance on large datasets.
+
+## License
+
+MIT License © 2025–2026 Paul Köhler (komed3)
