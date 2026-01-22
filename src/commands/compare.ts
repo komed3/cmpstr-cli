@@ -11,8 +11,9 @@
 
 'use strict';
 
-import { type Command } from 'commander';
 import { CmpStrAsync } from 'cmpstr';
+import { type Command } from 'commander';
+
 import { cfg } from '../utils/config.js';
 import { resolveInput } from '../utils/input.js';
 import { output } from '../utils/output.js';
@@ -23,37 +24,26 @@ import { output } from '../utils/output.js';
  * @async
  * @param {string} a - The first input string or file path.
  * @param {string} b - The second input string or file path.
- * @param {Record<string, any>} [opt] - Additional options for comparison.
+ * @param {Record< string, any >} [opt] - Additional options for comparison.
  * @param {Command} cmd - The Commander command instance.
- * @returns {Promise<void>}
+ * @returns {Promise< void >}
  */
 export async function compare (
     a: string, b: string,
-    opt: Record<string, any> = Object.create( null ),
+    opt: Record< string, any > = Object.create( null ),
     cmd: Command
-) : Promise<void> {
-
+) : Promise< void > {
     const config = await cfg( cmd, opt );
-
     const { async = false, verbose = false, metric = 'levenshtein', flags = '' } = config;
+    const cmp = CmpStrAsync.create().setRaw( verbose ).setMetric( metric ).setFlags( flags );
 
-    a = await resolveInput( a );
-    b = await resolveInput( b );
+    a = await resolveInput( a ), b = await resolveInput( b );
 
-    const cmp = CmpStrAsync
-        .create()
-        .setRaw( verbose )
-        .setMetric( metric )
-        .setFlags( flags );
-
-    if ( verbose ) output( config, cmd, JSON.stringify( async
-        ? await cmp.testAsync( a, b )
-        : cmp.test( a, b )
+    if ( verbose ) output( config, cmd, JSON.stringify(
+        async ? await cmp.testAsync( a, b ) : cmp.test( a, b )
     ) );
 
-    else output( config, cmd, async
-        ? await cmp.compareAsync( a, b )
-        : cmp.compare( a, b )
-    );
-
+    else output( config, cmd, (
+        async ? await cmp.compareAsync( a, b ) : cmp.compare( a, b )
+    ) );
 }
