@@ -12,9 +12,10 @@
 
 'use strict';
 
-import { type Command } from 'commander';
-import { TextAnalyzer } from 'cmpstr';
 import chalk from 'chalk';
+import { TextAnalyzer } from 'cmpstr';
+import { type Command } from 'commander';
+
 import { cfg } from '../utils/config.js';
 import { resolveInput } from '../utils/input.js';
 import { output } from '../utils/output.js';
@@ -26,12 +27,10 @@ import { output } from '../utils/output.js';
  * @param {string} input - The input text or file path to analyze.
  * @param {any} _ - Unused options parameter (Commander compatibility).
  * @param {Command} cmd - The Commander command instance.
- * @returns {Promise<void>}
+ * @returns {Promise< void >}
  */
-export async function analyze ( input: string, _: any, cmd: Command ) : Promise<void> {
-
+export async function analyze ( input: string, _: any, cmd: Command ) : Promise< void > {
     const config = await cfg( cmd ), out: string[] = [];
-
     const analyze = new TextAnalyzer ( await resolveInput( input ) );
 
     // Helper to add a colored heading to the output
@@ -78,12 +77,14 @@ export async function analyze ( input: string, _: any, cmd: Command ) : Promise<
     num( 'Long word ratio', 'getLongWordRatio' );
     num( 'Short word ratio', 'getShortWordRatio' );
     obj( 'Char frequency', 'getCharFrequency' );
-    obj( 'Unicode stats', 'getUnicodeStats' );
+    obj( 'Unicode codepoints', 'getUnicodeCodepoints' );
 
     // Syllables section
     heading( 'Syllables (estimated)' );
     num( 'Syllables count', 'getSyllablesCount', 0 );
     num( 'Monosyllabic words', 'getMonosyllabicWordCount', 0 );
+    num( 'Avg. syllables per word', 'getAvgSyllablesPerWord', 0 );
+    num( 'Syllables / word median', 'getMedianSyllablesPerWord', 0 );
 
     // Reading section
     heading( 'Reading' );
@@ -94,5 +95,4 @@ export async function analyze ( input: string, _: any, cmd: Command ) : Promise<
     str( 'Wiener Sachtextformel', 'getWSTFScore' );
 
     output( config, cmd, out.join( '\n' ).substring( 1 ) );
-
 }
