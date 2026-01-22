@@ -34,4 +34,4 @@ export interface Config {
         single?: boolean;         // Single line output for diff
         all?: boolean;            // Show all lines in diff
     };
-};
+}
