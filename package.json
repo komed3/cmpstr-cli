@@ -2,7 +2,7 @@
   "name": "cmpstr-cli",
   "description": "Simple CLI wrapper for the CmpStr package to normalize and compare strings directly via terminal",
   "license": "MIT",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "author": {
     "name": "komed3 (Paul Köhler)",
     "email": "webmaster@komed3.de",
