@@ -47,7 +47,7 @@ program
     .description( 'CLI for the lightweight CmpStr package.\nIt enables direct use of CmpStr’s ' +
                   'core features such as string normalization,\nsimilarity scoring, and matrix ' +
                   'comparison via the terminal.\n\nAll inputs can also refer to readable files.' )
-    .version( '1.2.1', '-v, --version', 'Output the version number' );
+    .version( 'CmpStr CLI 1.2.1\nCmpstr 3.3.0', '-v, --version', 'Output the version number' );
 
 // Global options available for all commands
 program
