@@ -64,7 +64,12 @@
     "cmpstr": "dist/index.js"
   },
   "scripts": {
-    "build": "tsc"
+    "build:dist": "tsc",
+    "build:declaration": "tsc --project tsconfig.declaration.json",
+    "format": "prettier --ignore-path \"\" --write \"./dist/**/*.@(js|d.ts)\" --log-level warn",
+    "build": "npm run build:dist && npm run build:declaration",
+    "prepublishOnly": "npm run build",
+    "postbuild": "npm run format"
   },
   "dependencies": {
     "chalk": "^6.0.0",
