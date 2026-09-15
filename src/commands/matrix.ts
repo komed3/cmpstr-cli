@@ -11,12 +11,14 @@
 
 'use strict';
 
+
 import { CmpStrAsync } from 'cmpstr';
-import { type Command } from 'commander';
+import type { Command } from 'commander';
 
 import { cfg } from '../utils/config.js';
 import { resolveListInput } from '../utils/input.js';
 import { output } from '../utils/output.js';
+
 
 /**
  * Computes a similarity matrix for all combinations within the input list.
@@ -27,14 +29,12 @@ import { output } from '../utils/output.js';
  * @param {Command} cmd - The Commander command instance.
  */
 export async function matrix (
-    input: string,
-    opt: Record< string, any > = Object.create( null ),
-    cmd: Command
+  input: string, opt: Record< string, any > = Object.create( null ), cmd: Command
 ) : Promise< void > {
-    const config = await cfg( cmd, opt );
-    const { async = false, delimiter = ',', metric = 'levenshtein', flags = '' } = config;
-    const list = await resolveListInput( input, delimiter );
-    const cmp = CmpStrAsync.create().setMetric( metric ).setFlags( flags );
+  const config = await cfg( cmd, opt );
+  const { async = false, delimiter = ',', metric = 'levenshtein', flags = '' } = config;
+  const list = await resolveListInput( input, delimiter );
+  const cmp = CmpStrAsync.create().setMetric( metric ).setFlags( flags );
 
-    await output( config, cmd, async ? await cmp.matrixAsync( list ) : cmp.matrix( list ) );
+  await output( config, cmd, async ? await cmp.matrixAsync( list ) : cmp.matrix( list ) );
 }

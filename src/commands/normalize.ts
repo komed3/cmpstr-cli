@@ -12,11 +12,12 @@
 'use strict';
 
 import { Normalizer } from 'cmpstr';
-import { type Command } from 'commander';
+import type { Command } from 'commander';
 
 import { cfg } from '../utils/config.js';
 import { resolveInput } from '../utils/input.js';
 import { output } from '../utils/output.js';
+
 
 /**
  * Normalizes the input string according to the specified flags.
@@ -27,16 +28,14 @@ import { output } from '../utils/output.js';
  * @param {Command} cmd - The Commander command instance.
  */
 export async function normalize (
-    input: string,
-    opt: Record< string, any > = Object.create( null ),
-    cmd: Command
+  input: string, opt: Record< string, any > = Object.create( null ), cmd: Command
 ) : Promise< void > {
-    const config = await cfg( cmd, opt );
-    const { async = false, flags = '' } = config;
-    const text = await resolveInput( input );
+  const config = await cfg( cmd, opt );
+  const { async = false, flags = '' } = config;
+  const text = await resolveInput( input );
 
-    await output( config, cmd, async
-        ? await Normalizer.normalizeAsync( text, flags )
-        : Normalizer.normalize( text, flags )
-    );
+  await output( config, cmd, async
+    ? await Normalizer.normalizeAsync( text, flags )
+    : Normalizer.normalize( text, flags )
+  );
 }

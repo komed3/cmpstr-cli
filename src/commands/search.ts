@@ -19,6 +19,7 @@ import { cfg } from '../utils/config.js';
 import { resolveInput, resolveListInput } from '../utils/input.js';
 import { output } from '../utils/output.js';
 
+
 /**
  * Performs a filtered and normalized substring search across the haystack.
  * 
