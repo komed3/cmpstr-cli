@@ -11,18 +11,21 @@
 
 'use strict';
 
+
 import { readFile } from 'node:fs/promises';
 import { dirname, extname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import { DeepMerge } from 'cmpstr/root';
-import { type Command } from 'commander';
+import type { Command } from 'commander';
 import yaml from 'yaml';
 
 import type { Config } from './types.js';
 
+
 // Get the directory name of the current module (ESM-compatible)
 const __dirname = dirname( fileURLToPath( import.meta.url ) );
+
 
 /**
  * Loads a configuration file (YAML, YML, or JSON).
@@ -34,22 +37,23 @@ const __dirname = dirname( fileURLToPath( import.meta.url ) );
  * @throws {Error} If loading or parsing fails.
  */
 export async function loadCfg ( cfgPath?: string ) : Promise< Partial< Config > > {
-    const defaultConfigPath = resolve( __dirname, '../../default.yml' );
-    const filePath = resolve( cfgPath || defaultConfigPath );
+  const defaultConfigPath = resolve( __dirname, '../../default.yml' );
+  const filePath = resolve( cfgPath || defaultConfigPath );
 
-    try {
-        const content = await readFile( filePath, 'utf-8' );
-        const ext = extname( filePath ).toLowerCase();
+  try {
+    const content = await readFile( filePath, 'utf-8' );
+    const ext = extname( filePath ).toLowerCase();
 
-        switch ( ext ) {
-            case '.yaml': case '.yml': return yaml.parse( content );
-            case '.json': return JSON.parse( content );
-            default: throw new Error ( `Unsupported config format: ${ext}` );
-        }
-    } catch ( err ) {
-        throw new Error ( `Failed to load config from ${filePath}`, { cause: err } );
+    switch ( ext ) {
+      case '.yaml': case '.yml': return yaml.parse( content );
+      case '.json': return JSON.parse( content );
+      default: throw new Error ( `Unsupported config format: ${ext}` );
     }
+  } catch ( err ) {
+    throw new Error ( `Failed to load config from ${ filePath }`, { cause: err } );
+  }
 }
+
 
 /**
  * Loads and merges configuration from file and CLI options.
@@ -60,11 +64,11 @@ export async function loadCfg ( cfgPath?: string ) : Promise< Partial< Config > 
  * @returns {Promise< Partial< Config > >} The resolved configuration object.
  */
 export async function resolveCfg (
-    cfg: Partial< Config > = Object.create( null ),
-    cfgPath?: string
+  cfg: Partial< Config > = Object.create( null ), cfgPath?: string
 ) : Promise< Partial< Config > > {
-    return DeepMerge.merge( ( await loadCfg( cfgPath ) ) ?? Object.create( null ), cfg );
+  return DeepMerge.merge( ( await loadCfg( cfgPath ) ) ?? Object.create( null ), cfg );
 }
+
 
 /**
  * Resolves the effective configuration for a command.
@@ -76,9 +80,8 @@ export async function resolveCfg (
  * @returns {Promise< Partial< Config > >} The resolved configuration object.
  */
 export async function cfg (
-    cmd: Command,
-    opt?: Record< string, any >
+  cmd: Command, opt?: Record< string, any >
 ) : Promise< Partial< Config > > {
-    const { config, ...opts } = cmd.parent!.opts() ?? {};
-    return await resolveCfg( DeepMerge.merge( opts, opt ), config );
+  const { config, ...opts } = cmd.parent!.opts() ?? {};
+  return await resolveCfg( DeepMerge.merge( opts, opt ), config );
 }

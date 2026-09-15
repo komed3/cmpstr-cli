@@ -11,7 +11,9 @@
 
 'use strict';
 
+
 import { access, readFile } from 'node:fs/promises';
+
 
 /**
  * Resolves the input string.
@@ -23,12 +25,12 @@ import { access, readFile } from 'node:fs/promises';
  * @returns {Promise< string >} The resolved input content.
  */
 export async function resolveInput ( input: string ) : Promise< string > {
-    try {
-        await access( input );
-        return ( await readFile( input, 'utf-8' ) ).trim();
-    } catch {
-        return input.trim();
-    }
+  try {
+    await access( input );
+    return ( await readFile( input, 'utf-8' ) ).trim();
+  } catch {
+    return input.trim();
+  }
 }
 
 /**
@@ -42,10 +44,10 @@ export async function resolveInput ( input: string ) : Promise< string > {
  * @returns {Promise< string[] >} The resolved list of strings.
  */
 export async function resolveListInput ( input: string, delimiter: string = ',' ) : Promise< string[] > {
-    try {
-        const text = await resolveInput( input );
-        return text.split( /\n/.exec( text ) ? /\r?\n/ : delimiter ).map( s => s.trim() ).filter( Boolean );
-    } catch {
-        return [];
-    }
+  try {
+    const text = await resolveInput( input );
+    return text.split( /\n/.exec( text ) ? /\r?\n/ : delimiter ).map( s => s.trim() ).filter( Boolean );
+  } catch {
+    return [];
+  }
 }
