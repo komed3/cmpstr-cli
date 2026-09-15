@@ -12,12 +12,14 @@
 
 'use strict';
 
+
 import { CmpStrAsync } from 'cmpstr';
-import { type Command } from 'commander';
+import type { Command } from 'commander';
 
 import { cfg } from '../utils/config.js';
 import { resolveInput } from '../utils/input.js';
 import { output } from '../utils/output.js';
+
 
 /**
  * Computes the phonetic representation of the given input string.
@@ -28,18 +30,16 @@ import { output } from '../utils/output.js';
  * @param {Command} cmd - The Commander command instance.
  */
 export async function index (
-    input: string,
-    opt: Record< string, any > = Object.create( null ),
-    cmd: Command
+  input: string, opt: Record< string, any > = Object.create( null ), cmd: Command
 ) : Promise< void > {
-    const config = await cfg( cmd, { phonetic: opt } );
-    const { algo, ...opts } = config.phonetic ?? {};
-    const cmp = CmpStrAsync.create();
+  const config = await cfg( cmd, { phonetic: opt } );
+  const { algo, ...opts } = config.phonetic ?? {};
+  const cmp = CmpStrAsync.create();
 
-    input = await resolveInput( input );
+  input = await resolveInput( input );
 
-    await output( config, cmd, config.async
-        ? await cmp.phoneticIndexAsync( input, algo, opts )
-        : cmp.phoneticIndex( input, algo, opts )
-    );
+  await output( config, cmd, config.async
+    ? await cmp.phoneticIndexAsync( input, algo, opts )
+    : cmp.phoneticIndex( input, algo, opts )
+  );
 }
