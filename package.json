@@ -68,13 +68,13 @@
   },
   "dependencies": {
     "chalk": "^6.0.0",
-    "cmpstr": "^3.3.0",
+    "cmpstr": "^3.4.0",
     "commander": "^15.0.0",
     "strip-ansi": "^7.2.0",
-    "yaml": "^2.9.0"
+    "yaml": "^2.9.1"
   },
   "devDependencies": {
-    "@types/node": "^26.0.0",
+    "@types/node": "^26.5.1",
     "typescript": "^7.0.2"
   }
 }
