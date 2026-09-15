@@ -20,6 +20,7 @@ import { cfg } from '../utils/config.js';
 import { resolveInput } from '../utils/input.js';
 import { output } from '../utils/output.js';
 
+
 /**
  * Finds and marks the differences between two texts.
  * 

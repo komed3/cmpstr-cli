@@ -19,6 +19,7 @@ import { cfg } from '../utils/config.js';
 import { resolveInput } from '../utils/input.js';
 import { output } from '../utils/output.js';
 
+
 /**
  * Compares two input strings and outputs their similarity score.
  * 

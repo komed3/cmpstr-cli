@@ -20,6 +20,7 @@ import { cfg } from '../utils/config.js';
 import { resolveInput, resolveListInput } from '../utils/input.js';
 import { output } from '../utils/output.js';
 
+
 /**
  * Compares the second input against the first string or
  * list of strings based on similarity.

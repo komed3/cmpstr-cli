@@ -18,6 +18,7 @@ import type { Command } from 'commander';
 import { cfg } from '../utils/config.js';
 import { output } from '../utils/output.js';
 
+
 /**
  * Lists available metrics or phonetic algorithms.
  * 
