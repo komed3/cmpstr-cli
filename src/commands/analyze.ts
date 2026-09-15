@@ -15,7 +15,7 @@
 
 import chalk from 'chalk';
 import { TextAnalyzer } from 'cmpstr';
-import { type Command } from 'commander';
+import type { Command } from 'commander';
 
 import { cfg } from '../utils/config.js';
 import { resolveInput } from '../utils/input.js';

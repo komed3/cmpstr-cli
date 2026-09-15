@@ -11,8 +11,9 @@
 
 'use strict';
 
+
 import { CmpStrAsync } from 'cmpstr';
-import { type Command } from 'commander';
+import type { Command } from 'commander';
 
 import { cfg } from '../utils/config.js';
 import { resolveInput } from '../utils/input.js';
@@ -28,18 +29,16 @@ import { output } from '../utils/output.js';
  * @param {Command} cmd - The Commander command instance.
  */
 export async function compare (
-    a: string, b: string,
-    opt: Record< string, any > = Object.create( null ),
-    cmd: Command
+  a: string, b: string, opt: Record< string, any > = Object.create( null ), cmd: Command
 ) : Promise< void > {
-    const config = await cfg( cmd, opt );
-    const { async = false, verbose = false, metric = 'levenshtein', flags = '' } = config;
-    const cmp = CmpStrAsync.create().setRaw( verbose ).setMetric( metric ).setFlags( flags );
+  const config = await cfg( cmd, opt );
+  const { async = false, verbose = false, metric = 'levenshtein', flags = '' } = config;
+  const cmp = CmpStrAsync.create().setRaw( verbose ).setMetric( metric ).setFlags( flags );
 
-    a = await resolveInput( a ), b = await resolveInput( b );
+  a = await resolveInput( a ), b = await resolveInput( b );
 
-    await output( config, cmd, verbose
-        ? JSON.stringify( async ? await cmp.testAsync( a, b ) : cmp.test( a, b ) )
-        : async ? await cmp.compareAsync( a, b ) : cmp.compare( a, b )
-    );
+  await output( config, cmd, verbose
+    ? JSON.stringify( async ? await cmp.testAsync( a, b ) : cmp.test( a, b ) )
+    : async ? await cmp.compareAsync( a, b ) : cmp.compare( a, b )
+  );
 }
