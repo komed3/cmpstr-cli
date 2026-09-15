@@ -61,7 +61,7 @@
   "types": "./dist/index.d.ts",
   "main": "./dist/index.js",
   "bin": {
-    "cmpstr": "./dist/index.js"
+    "cmpstr": "dist/index.js"
   },
   "scripts": {
     "build": "tsc"
